@@ -1,0 +1,17 @@
+.header {
+  background-color: var(--color-modal-bg);
+}
+
+.nav, 
+.menuList, 
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(var(--offset-base-size) * 2);
+  color: var(--text-dark-grey);
+}
+
+.active {
+  color: var(--text-primary-light);
+}
