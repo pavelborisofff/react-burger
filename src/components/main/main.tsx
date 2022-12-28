@@ -1,37 +1,37 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../burger-ingredients/burger-ingredients';
+import BurgerIngredients from '../burger-constructor/burger-constructor';
 import { DataUrl } from '../../utils/constants';
-import { DataResponse, DataItemProps } from '../../utils/types';
+import { DataResponse } from '../../utils/types';
 
 import styles from './main.module.css';
 
 
-const repackData = (data: DataResponse):DataItemProps => {
-  const repackedData:DataItemProps = {};
+// const repackData = (data: DataResponse):DataItemProps => {
+//   const repackedData:DataItemProps = {};
 
-  data.data.forEach(item => {
-    if (repackedData[item.type] === undefined) {
-      repackedData[item.type] = [];
-    }
+//   data.data.forEach(item => {
+//     if (repackedData[item.type] === undefined) {
+//       repackedData[item.type] = [];
+//     }
 
-    repackedData[item.type]?.push(item);
-  });
+//     repackedData[item.type]?.push(item);
+//   });
 
-  return repackedData;
-}
+//   return repackedData;
+// }
 
 
 const Main = () => {
-  const [data, setData] = useState<DataItemProps>(),
+  const [data, setData] = useState<DataResponse>(),
         [error, setError] = useState<string>();
 
   useEffect(() => {
     axios.get<DataResponse>(DataUrl)
       .then(res => {
-        setData(repackData(res.data));
+        setData(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -47,8 +47,8 @@ const Main = () => {
       </h1>
       {!data && !error && <p className={`${styles.loading} text text_type_main-default`}>Загрузка...</p>}
       {!data && error && <p className={`${styles.error} text text_type_main-default`}>Что-то пошло не так :-/ {error}</p>}
-      {data && <BurgerConstructor {...data}/>}
-      {data && <BurgerIngredients {...data}/>}
+      {data && <BurgerConstructor {...data.data}/>}
+      {/* {data && <BurgerIngredients {...data}/>} */}
     </main>
   );
 };

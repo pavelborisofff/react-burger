@@ -1,0 +1,35 @@
+:root {
+  --gap: calc(var(--offset-base-size) * 6);
+}
+
+.tabsList {
+  
+}
+
+.navList {
+  display: flex;
+}
+
+.ingridientsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--gap);
+}
+
+.ingridientsItem {
+  text-align: center;
+  position: relative;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;;
+}
+
+
+
+.ingridientsPrice {
+  display: flex;
+  justify-content: center;
+}
