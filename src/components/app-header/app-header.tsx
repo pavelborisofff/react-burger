@@ -1,13 +1,8 @@
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { NavItemProps } from '../../utils/types';
+
 import styles from './app-header.module.css';
-
-
-type NavItemProps = {
-  text: string,
-  active?: boolean,
-  children?: React.ReactNode,
-}
 
 
 const NavItem = (props: NavItemProps) => {
@@ -17,7 +12,7 @@ const NavItem = (props: NavItemProps) => {
     <li className={`${styles.menuList} px-5 py-4`}>
       {props.children}
       <p className={`${active} text text_type_main-default`}>{props.text}</p>
-  </li>
+    </li>
   );
 }
 

@@ -1,0 +1,18 @@
+:root {
+  --gap: calc(var(--offset-base-size) * 10)
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: var(--gap);
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3; 
+}
+
+.section {
+  background-color: #fff;
+}
