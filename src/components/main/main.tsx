@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import BurgerConstructor from '../burger-ingredients/burger-ingredients';
-import BurgerIngredients from '../burger-constructor/burger-constructor';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { DataUrl } from '../../utils/constants';
 import { DataResponse } from '../../utils/types';
 
@@ -47,8 +47,8 @@ const Main = () => {
       </h1>
       {!data && !error && <p className={`${styles.loading} text text_type_main-default`}>Загрузка...</p>}
       {!data && error && <p className={`${styles.error} text text_type_main-default`}>Что-то пошло не так :-/ {error}</p>}
+      {data && <BurgerIngredients {...data.data}/>}
       {data && <BurgerConstructor {...data.data}/>}
-      {/* {data && <BurgerIngredients {...data}/>} */}
     </main>
   );
 };

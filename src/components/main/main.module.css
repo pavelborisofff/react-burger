@@ -1,11 +1,8 @@
-:root {
-  --gap: calc(var(--offset-base-size) * 10)
-}
-
 .main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: var(--gap);
+  grid-column-gap: calc(var(--offset-base-size) * 10);
+  max-height: 100vh;
 }
 
 .header {

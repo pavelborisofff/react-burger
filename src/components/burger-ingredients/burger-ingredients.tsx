@@ -14,7 +14,7 @@ const Ingridient = (props: Data) => {
       {!!props.__v && <Counter count={props.__v} size='default' extraClass={`${styles.counter} m-1`} />}
       <img src={props.image} alt={props.name} className={`${styles.ingridientsImage}`}/>
       <div className={`${styles.ingridientsPrice}`}> 
-        <p className={`text text_type_digits-default`}>{props.price}</p>
+        <p className={`text text_type_digits-default pr-2`}>{props.price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <p className={`${styles.ingridientsName} text text_type_main-default`}>{props.name}</p>
@@ -26,7 +26,7 @@ const Ingridient = (props: Data) => {
 
 const TabItem = (props: TabItemProps) => {
   return (
-    <li className={`${styles.tabsItem} pt-10`}>
+    <li className={`pt-10`}>
       <h2 className={`text text_type_main-medium`}>{props.title}</h2>
       <ul className={`${styles.ingridientsList}`}>
         {props.data && props.data.map(item => (
@@ -38,7 +38,7 @@ const TabItem = (props: TabItemProps) => {
 };
 
 
-const BurgerConstructor = (props:Data[]) => {
+const BurgerIngredients = (props:Data[]) => {
   const [current, setCurrent] = useState(Tabs.bun);  
 
   return (
@@ -67,4 +67,4 @@ const BurgerConstructor = (props:Data[]) => {
   )
 }
 
-export default BurgerConstructor;
+export default BurgerIngredients;

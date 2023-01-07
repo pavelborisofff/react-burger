@@ -1,9 +1,5 @@
-:root {
-  --gap: calc(var(--offset-base-size) * 6);
-}
-
 .tabsList {
-  
+  overflow-y: auto;
 }
 
 .navList {
@@ -13,7 +9,7 @@
 .ingridientsList {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: var(--gap);
+  grid-gap: calc(var(--offset-base-size) * 6);
 }
 
 .ingridientsItem {
