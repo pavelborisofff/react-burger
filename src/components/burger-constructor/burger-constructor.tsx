@@ -11,7 +11,7 @@ function BurgerConstructor(props:Data[]) {
 
   return (
     <>
-      <section className={`${styles.section}`}>
+      <section className={`${styles.section} section`}>
         {/* top */}
         <ConstructorElement
           type='top'

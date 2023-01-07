@@ -1,8 +1,9 @@
 .tabsList {
   overflow-y: auto;
+  height: calc(912px - 188px - 56px);
 }
 
-.navList {
+.navList { 
   display: flex;
 }
 
@@ -22,7 +23,6 @@
   top: 0;
   right: 0;;
 }
-
 
 
 .ingridientsPrice {

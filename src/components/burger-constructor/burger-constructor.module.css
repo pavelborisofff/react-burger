@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--offset-base-size) * 4);
+  /* height: calc(912px - 88px - 100px - 56px); */
 }
 
 .constructorElement {

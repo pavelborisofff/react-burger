@@ -54,7 +54,7 @@ const BurgerIngredients = (props:Data[]) => {
           ))}
         </ul>
       </nav>
-      <ul className={`${styles.tabsList}`}>
+      <ul className={`${styles.tabsList} custom-scroll`}>
         {Object.entries(Tabs).map(tab => {
           const filteredData = Object.values(props).filter(item => item.type === tab[0]);
           
