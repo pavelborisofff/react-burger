@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { TabItemProps, Data, DataResponse } from '../../utils/types';
+import { Data } from '../../utils/types';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-constructor.module.css';

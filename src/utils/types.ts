@@ -1,6 +1,6 @@
 import { Tabs } from './constants';
 
-type Data = {
+export type Data = {
   _id: string,
   name: string,
   type: Tabs,
@@ -15,25 +15,23 @@ type Data = {
   __v: number,
 };
 
-// type DataItemProps = {
-//   [key in Tabs]?: Data[]
-// };
-
-type DataResponse = {
+export type DataResponse = {
   data: Data[],
 }
 
-type NavItemProps = {
+export type NavItemProps = {
   text: string,
   active?: boolean,
   children?: React.ReactNode,
 };
 
-type TabItemProps = {
+export type TabItemProps = {
   title: Tabs,
   data?: Data[],
 };
 
-
-
-export type { Data, NavItemProps, TabItemProps, DataResponse };
+export type GetData = {
+  isLoading: boolean,
+  isError: boolean,
+  data: Data[],
+}

@@ -18,6 +18,11 @@ ul, ol {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /*  main */
 html {
   font-family: 'Jet Brains Mono';

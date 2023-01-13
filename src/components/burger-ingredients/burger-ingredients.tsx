@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { Tabs } from '../../utils/constants';
-import { TabItemProps, Data, DataResponse } from '../../utils/types';
+import { TabItemProps, Data } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
-
 
 
 const Ingridient = (props: Data) => {
@@ -21,7 +20,6 @@ const Ingridient = (props: Data) => {
     </li>
   );
 };
-
 
 
 const TabItem = (props: TabItemProps) => {
@@ -60,7 +58,7 @@ const BurgerIngredients = (props:Data[]) => {
           
           return (
             <TabItem key={tab[0]} title={tab[1]} data={filteredData}/>
-          );
+        );
         })}
       </ul>
     </section>

@@ -22,11 +22,11 @@ const AppHeader = () => {
     <header className={`${styles.header} py-4`}>
       <nav className={`${styles.nav} container`}>
         <ul className={`${styles.menuList}`}>
-          <NavItem text='Конструктор' active={true} ><BurgerIcon type='primary' /></NavItem>
-          <NavItem text='Лента заказов'><ListIcon type='secondary' /></NavItem>
+          <a href='#'><NavItem text='Конструктор' active={true} ><BurgerIcon type='primary' /></NavItem></a>
+          <a href='#'><NavItem text='Лента заказов'><ListIcon type='secondary' /></NavItem></a>
         </ul>
-        <Logo />
-        <NavItem text='Личный кабинет'><ProfileIcon type='secondary' /></NavItem>
+        <a href='#'><Logo /></a>
+        <a href='#'><NavItem text='Личный кабинет'><ProfileIcon type='secondary' /></NavItem></a>
       </nav>
     </header>
   );
