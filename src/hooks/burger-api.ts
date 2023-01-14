@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { DataUrl } from './constants';
-import { GetData } from './types';
+import { DataUrl } from '../utils/constants';
+import { GetData } from '../utils/types';
 
 
 const useGetData = (dataUrl: string = DataUrl) => {
