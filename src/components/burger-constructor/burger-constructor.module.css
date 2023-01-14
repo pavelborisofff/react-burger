@@ -1,0 +1,30 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--offset-base-size) * 4);
+  /* height: calc(912px - 88px - 100px - 56px); */
+}
+
+.constructorElement {
+  flex-grow:  0;
+}
+
+.scrollableSection {
+  overflow-y: auto;
+}
+
+.constructorItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.orderWrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.button {
+  margin-left: calc(var(--offset-base-size) * 4);
+}
