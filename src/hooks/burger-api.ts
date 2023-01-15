@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+
 import axios from 'axios';
+
 import { DataUrl } from '../utils/constants';
 import { GetData } from '../utils/types';
 

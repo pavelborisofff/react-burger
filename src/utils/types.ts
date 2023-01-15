@@ -1,4 +1,4 @@
-import { Tabs } from './constants';
+import { Nutrients, Tabs } from './constants';
 
 export type Data = {
   _id: string,
@@ -35,3 +35,13 @@ export type GetData = {
   isError: boolean,
   data: Data[],
 }
+
+export type NutrientsFactProps = {
+  title: Nutrients,
+  value?: number,
+};
+
+export type ModalOverlayProps = {
+  onClose: () => void;
+  children?: React.ReactNode;
+};

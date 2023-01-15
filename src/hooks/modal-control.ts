@@ -1,13 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, ReactNode } from 'react';
 
 
 const useModalControl = () => {
-  const [ showModal, setShowModal ] = useState<boolean>(false);
+  const [ showModal, setShowModal ] = useState<boolean>(false),
+        [ modalHeading, setModalHeading ] = useState<string>(''),
+        [ modalContent, setModalContent ] = useState<ReactNode | null>();
 
   // TODO: есть ли смысл мемоизировать данную функцию? 
-  const handleToggle = useCallback(() => {
+  const handleToggle = () => {
     setShowModal(!showModal);
-  }, [showModal]);
+  };
 
   // TODO: я так понимаю, 
   // всё же лучше использовать явные хендлеры handleOpen и handleClose для того, 
@@ -23,7 +25,13 @@ const useModalControl = () => {
   //   setShowModal(false);
   // }, []);
 
-  return { showModal, handleToggle };
+  // Это на случай, если модалка вызывается из одного компонента, но с разными заголовками.
+  const handleHeading = useCallback((heading: string) => {
+    setModalHeading(heading);
+  }, []);
+
+
+  return { showModal, handleToggle, handleHeading, modalHeading, modalContent, setModalContent };
 };
 
 export { useModalControl };

@@ -5,17 +5,24 @@ import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktiku
 import { Data } from '../../utils/types';
 import { useModalControl } from '../../hooks/modal-control';
 import { Modal } from '../modal/modal';
+import { OrderDetails } from '../order-details/order-details';
 
 import styles from './burger-constructor.module.css';
 
 
 function BurgerConstructor(props:Data[]) {
   const [total, setTotal] = useState<number>(),
-        { showModal, handleToggle } = useModalControl();
+        { showModal, handleToggle, handleHeading, setModalContent, modalHeading, modalContent } = useModalControl();
+
+  const handleOrder = () => {
+    handleHeading('');
+    setModalContent(<OrderDetails />);
+    handleToggle();
+  };
 
   return (
     <>
-      <Modal showModal={showModal} onClose={handleToggle} heading=''></Modal>
+      <Modal showModal={showModal} onClose={handleToggle} modalHeading={modalHeading}>{modalContent}</Modal>
       <section className={`${styles.section} section`}>
         {/* top */}
         <ConstructorElement
@@ -53,6 +60,7 @@ function BurgerConstructor(props:Data[]) {
             extraClass={`${styles.constructorElement}  ml-8`}
           />
         </div>
+        {/* total and order */}
         <div className={`${styles.orderWrapper} py-10`}>
           <p className={`${styles.orderPrice} text text_type_digits-medium mr-2`}>
             {total ? total : 0}
@@ -63,7 +71,7 @@ function BurgerConstructor(props:Data[]) {
             type='primary' 
             size='large' 
             extraClass={`${styles.button}`}
-            onClick={handleToggle}
+            onClick={handleOrder}
           >
             Оформить заказ
           </Button>
