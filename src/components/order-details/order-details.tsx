@@ -24,15 +24,12 @@ const OrderDetails = () => {
 
   // Иммитация обработки заказа
   useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('Заказ готовится');
-      
+    const timer = setTimeout(() => {      
       setState({
         ...state,
         status: OrderStatus.inProgress
       });
       const timer2 = setTimeout(() => {
-        console.log('Заказ готов');
         setState({
           ...state,
           status: OrderStatus.done
