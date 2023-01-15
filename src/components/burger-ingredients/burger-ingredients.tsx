@@ -17,12 +17,12 @@ const Ingridient = (props: Data) => {
   const handleIngridient = () => {
     handleHeading('Детали ингридиента');
     setModalContent(<IngredientDetails {...props} />);
-    handleToggle();
+    handleToggle(true);
   };
 
   return (
     <li className={`${styles.ingridientsItem}`} onClick={handleIngridient}>
-      <Modal showModal={showModal} onClose={handleToggle} modalHeading={modalHeading}>{modalContent}</Modal>
+      <Modal showModal={showModal} onClose={() => handleToggle(false)} modalHeading={modalHeading}>{modalContent}</Modal>
       {!!props.__v && <Counter count={props.__v} size='default' extraClass={`${styles.counter} m-1`} />}
       <img src={props.image} alt={props.name} className={`${styles.ingridientsImage}`}/>
       <div className={`${styles.ingridientsPrice}`}> 

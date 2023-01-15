@@ -17,12 +17,12 @@ function BurgerConstructor(props:Data[]) {
   const handleOrder = () => {
     handleHeading('');
     setModalContent(<OrderDetails />);
-    handleToggle();
+    handleToggle(true);
   };
 
   return (
     <>
-      <Modal showModal={showModal} onClose={handleToggle} modalHeading={modalHeading}>{modalContent}</Modal>
+      <Modal showModal={showModal} onClose={() => handleToggle(false)} modalHeading={modalHeading}>{modalContent}</Modal>
       <section className={`${styles.section} section`}>
         {/* top */}
         <ConstructorElement

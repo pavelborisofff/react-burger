@@ -6,10 +6,10 @@ const useModalControl = () => {
         [ modalHeading, setModalHeading ] = useState<string>(''),
         [ modalContent, setModalContent ] = useState<ReactNode | null>();
 
-  // TODO: есть ли смысл мемоизировать данную функцию? Она одна на всё приложение.
-  const handleToggle = useCallback(() =>{
-    setShowModal(!showModal);
-  }, [showModal]);
+  // TODO: ну или вот так, чтобы методы не переписывать везде
+  const handleToggle = (flag:boolean) =>{
+    setShowModal(flag);
+  };
 
   // TODO: я так понимаю, 
   // всё же лучше использовать явные хендлеры handleOpen и handleClose для того, 

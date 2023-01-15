@@ -29,15 +29,20 @@ const OrderDetails = () => {
         ...state,
         status: OrderStatus.inProgress
       });
-      const timer2 = setTimeout(() => {
-        setState({
-          ...state,
-          status: OrderStatus.done
-        });
-        clearTimeout(timer);
-        clearTimeout(timer2);
-      }, 2000);
     }, 1000);
+    
+    const timer2 = setTimeout(() => {
+      setState({
+        ...state,
+        status: OrderStatus.done
+      });
+      clearTimeout(timer2);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    }
   }, []);
 
   return (

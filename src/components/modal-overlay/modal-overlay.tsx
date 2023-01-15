@@ -12,9 +12,7 @@ const ModalOverlay = ({ onClose, children }:ModalOverlayProps) => {
     e.stopPropagation();
         
     // Ref здесь исключительно ради интереса, проще было бы написать e.target === e.currentTarget
-    if (e.target === ref.current) {
-      console.log('same');
-      
+    if (e.target === ref.current) {     
       onClose();
     }
   };
