@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -7,12 +7,16 @@ import { useModalControl } from '../../hooks/modal-control';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 
+import { IngredientsContext } from '../../contexts/ingredients-context';
+
 import styles from './burger-constructor.module.css';
 
 
-function BurgerConstructor(props:Data[]) {
+function BurgerConstructor() {
   const [total, setTotal] = useState<number>(),
+        data = useContext<Data[]>(IngredientsContext),
         { showModal, handleToggle, handleHeading, setModalContent, modalHeading, modalContent } = useModalControl();
+        
 
   const handleOrder = () => {
     handleHeading('');
@@ -27,15 +31,15 @@ function BurgerConstructor(props:Data[]) {
         {/* top */}
         <ConstructorElement
           type='top'
-          text={props[0].name}
-          price={props[0].price}
-          thumbnail={props[0].image}
+          text={data[0].name}
+          price={data[0].price}
+          thumbnail={data[0].image}
           isLocked={true}
           extraClass={`${styles.constructorElement} ml-8`}
         />
         {/* middle section with scrollbar */}
         <section className={`${styles.section} ${styles.scrollableSection} custom-scroll`}>
-          {Object.values(props).map(item => (
+          {Object.values(data).map(item => (
             <div className={`${styles.constructorItem}`} key={item._id}>
               <DragIcon type='primary' />
               <ConstructorElement
@@ -53,9 +57,9 @@ function BurgerConstructor(props:Data[]) {
         <div key='bottom'>
           <ConstructorElement
             type='bottom'
-            text={props[0].name}
-            price={props[0].price}
-            thumbnail={props[0].image}
+            text={data[0].name}
+            price={data[0].price}
+            thumbnail={data[0].image}
             isLocked={true}
             extraClass={`${styles.constructorElement}  ml-8`}
           />

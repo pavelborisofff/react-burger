@@ -28,6 +28,7 @@ export type NavItemProps = {
 export type TabItemProps = {
   title: Tabs,
   data?: Data[],
+  tabId: string,
 };
 
 export type GetData = {

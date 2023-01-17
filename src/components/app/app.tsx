@@ -1,17 +1,32 @@
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
+import { useState, createContext } from 'react';
+import Header from './header';
 
-import './app.module.css';
+
+interface IContext {
+  state: {
+    header?: string;
+  };
+  setState: ({}) => void;
+}
+
+const initContext:IContext = {
+  state: {
+    header: 'header',
+  },
+  setState: () => {}
+}
+
+export const Context = createContext<IContext>(initContext);
 
 
 function App() {
-  return (
-    <>
-      <AppHeader />
-      <Main />
-    </>
-  );
-};
+  const [state, setState] = useState(initContext.state);
 
+  return (
+    <Context.Provider value={{ state, setState }}>
+      <Header />
+    </Context.Provider>
+  );
+}
 
 export default App;
