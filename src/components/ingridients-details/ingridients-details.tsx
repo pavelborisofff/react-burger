@@ -21,7 +21,7 @@ const IngredientDetails = (props:Data) => {
       <ul className={`${styles.nutrientsList}`}>
         {Object.entries(Nutrients).map(([key, value]) => {
           const propsKey = key as keyof Data,
-                propsValue = props[propsKey];
+                propsValue = props[propsKey]?.toString() || '';
 
           return (
             <IngridientNutrients key={key} title={value} value={+propsValue}/>

@@ -5,7 +5,7 @@ enum Tabs {
 }
 
 enum OrderStatus {
-  pending = 'принят',
+  pending = 'отправлен',
   inProgress = 'начали готовить',
   done = 'готов',
 }
@@ -17,6 +17,11 @@ enum Nutrients {
   carbohydrates = 'Углеводы, г',
 }
 
-const DataUrl: string = 'https://norma.nomoreparties.space/api/ingredients';
+const ApiUrl: string = 'https://norma.nomoreparties.space/api/';
 
-export { Tabs, DataUrl, OrderStatus, Nutrients };
+enum API {
+  ingredients = 'ingredients',
+  orders = 'orders',
+}
+
+export { Tabs, ApiUrl, OrderStatus, Nutrients, API };

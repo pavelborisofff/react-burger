@@ -34,7 +34,21 @@ export type TabItemProps = {
 export type GetData = {
   isLoading: boolean,
   isError: boolean,
-  data: Data[],
+  data: FilteredData,
+}
+
+export type PostData = {
+  isLoading: boolean,
+  isError: boolean,
+  response: {} | null,
+}
+
+export type Payload = {
+  'ingredients': string[];
+}
+
+export type FilteredData = {
+  [key in Tabs]: Data[]
 }
 
 export type NutrientsFactProps = {

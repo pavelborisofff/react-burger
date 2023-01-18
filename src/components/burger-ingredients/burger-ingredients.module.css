@@ -18,6 +18,15 @@
   position: relative;
 }
 
+.ingridientsItem:has(>svg) {
+  opacity: 40%;
+}
+
+.ingridientsItem>svg {
+  position: absolute;
+  margin: calc(var(--offset-base-size) * 2)
+}
+
 .counter {
   position: absolute;
   top: 0;

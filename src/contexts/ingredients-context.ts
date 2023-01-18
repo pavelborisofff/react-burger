@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Data } from '../utils/types';
+import { FilteredData } from '../utils/types';
 
 
-export const IngredientsContext = createContext<Data[]>([]);
+export const IngredientsContext = createContext<FilteredData>({} as FilteredData);
