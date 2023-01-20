@@ -1,8 +1,7 @@
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
+import AppHeader from "../app-header/app-header";
+import Main from "../main/main";
 
-import './app.module.css';
-
+import "./app.module.scss";
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
       <Main />
     </>
   );
-};
-
+}
 
 export default App;

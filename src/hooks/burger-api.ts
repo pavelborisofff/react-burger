@@ -1,24 +1,26 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import { ApiUrl, API } from '../utils/constants';
-import { GetData, Data, FilteredData, PostData, Payload } from '../utils/types';
-import { OrderContext } from '../contexts/constructor-context';
+import { ApiUrl, API } from "../utils/constants";
+import { Data, FilteredData, Payload } from "../types/types";
 
+enum Method {
+  GET = "get",
+  POST = "post",
+}
 
+enum Requests {
+  getData = "getData",
+  postOrder = "postOrder",
+}
 
-const useGetData = (dataUrl: string = ApiUrl) => {
-  const [state, setState] = useState<GetData>({
+const BurgerApi = () => {
+  const [state, setState] = useState({
     isLoading: false,
     isError: false,
-    data: {} as FilteredData,
+    response: null,
   });
-
-  useEffect(() => {  
-    getData();
-  // eslint-disable-next-line
-  }, []);
 
   const filterData = (data: Data[]) => {
     const filteredData = {} as FilteredData;
@@ -29,55 +31,42 @@ const useGetData = (dataUrl: string = ApiUrl) => {
       if (!filteredData[item.type]) filteredData[key] = [];
       filteredData[key]?.push(item);
     });
-    
+
     return filteredData;
   };
 
-
-  const getData = async () => {
+  const makeRequest = async (
+    request: Requests = Requests.getData,
+    payload?: Payload,
+    url: string = ApiUrl
+  ) => {
     setState({ ...state, isLoading: true });
 
     try {
-      const result = await axios(ApiUrl + API.ingredients);
-      setState({ ...state, isLoading: false, data: filterData(result.data.data) });      
+      let result;
+
+      switch (request) {
+        case Requests.getData:
+          result = await axios(url + API.ingredients, { method: Method.GET });
+          setState({ ...state, isLoading: false });
+          return filterData(result.data.data);
+        case Requests.postOrder:
+          result = await axios(url + API.orders, {
+            method: Method.POST,
+            data: payload,
+          });
+
+          setState({ ...state, isLoading: false });
+          return result.data.order.number;
+        default:
+          throw new Error("Unknown method");
+      }
     } catch (error) {
       setState({ ...state, isLoading: false, isError: true });
     }
   };
 
-  return state;
+  return { ...state, makeRequest };
 };
 
-const usePostOrder = (dataUrl: string = ApiUrl) => {
-  const [state, setState] = useState<PostData>({
-    isLoading: false,
-    isError: false,
-    response: null,
-  });
-  const [payload, setPayload] = useState<Payload | null>(null);
-  const { setNumber } = useContext(OrderContext);
-
-  const postData = async (data: any) => {
-    setState({ ...state, isLoading: true });
-
-    try {
-      setNumber(0);
-      const result = await axios.post(dataUrl + API.orders, data);
-      
-      setState({ ...state, isLoading: false, response: result.data })
-      setNumber(result.data.order.number);
-      setPayload(null);
-    } catch (error) {
-      setState({ ...state, isLoading: false, isError: true });
-    }
-  }
-
-  useEffect(() => {
-    if (payload) postData(payload);    
-  // eslint-disable-next-line
-  }, [payload]);
-
-  return { setPayload };
-};
-
-export { useGetData, usePostOrder };
+export { BurgerApi, Requests };
