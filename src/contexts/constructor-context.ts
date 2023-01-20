@@ -1,38 +1,40 @@
-import { createContext } from 'react';
-import { Data } from '../utils/types';
+import { createContext } from "react";
+import { Data } from "../types/types";
 
-
-interface IBunContextData {
+type typeBunContext = {
   bun: Data | null;
-  setBun: React.Dispatch<React.SetStateAction<Data>>;
-}
+  setBun: (bun: Data | null) => void;
+};
 
-export const BunContextInitial: IBunContextData = {
-  bun: {} as Data,
+const initBunContext = {
+  bun: null,
   setBun: () => {},
 };
 
-export interface IConstructorContextData {
-  recepie: Data[];
-  setRecepie: React.Dispatch<React.SetStateAction<Data[]>>;
-}
+export const BunContext = createContext<typeBunContext>(initBunContext);
 
-export const ConstructorContextInitial: IConstructorContextData = {
-  recepie: [] as Data[],
-  setRecepie: () => {},
+type typeConstructorContext = {
+  recipe: Data[];
+  setRecipe: (recipe: Data[]) => void;
 };
 
-export interface IOrderContextData {
-  number: number,
-  setNumber: React.Dispatch<React.SetStateAction<number>>,
-}
+const initConstructorContext = {
+  recipe: [] as Data[],
+  setRecipe: () => {},
+};
 
-export const OrderContextInitial: IOrderContextData = {
-  number: 0,
+export const ConstructorContext = createContext<typeConstructorContext>(
+  initConstructorContext
+);
+
+type typeOrderContext = {
+  number: number | null;
+  setNumber: (number: number | null) => void;
+};
+
+const initOrderContext = {
+  number: null,
   setNumber: () => {},
 };
 
-
-export const ConstructorContext = createContext<IConstructorContextData>(ConstructorContextInitial);
-export const BunContext = createContext<IBunContextData>(BunContextInitial);
-export const OrderContext = createContext<IOrderContextData>(OrderContextInitial);
+export const OrderContext = createContext<typeOrderContext>(initOrderContext);
