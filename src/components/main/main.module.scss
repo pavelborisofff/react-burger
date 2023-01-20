@@ -1,7 +1,9 @@
+@import "../../variables.scss";
+
 .main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: calc(var(--offset-base-size) * 10);
+  grid-column-gap: calc(#{$offset-base-size} * 10);
   height: 912px;
 }
 

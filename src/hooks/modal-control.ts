@@ -1,9 +1,9 @@
 import { useState, useCallback, ReactNode } from "react";
 
 const useModalControl = () => {
-  const [showModal, setShowModal] = useState<boolean>(false),
-    [modalHeading, setModalHeading] = useState<string>(""),
-    [modalContent, setModalContent] = useState<ReactNode | null>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalHeading, setModalHeading] = useState<string>('');
+    
 
   const handleToggle = (flag: boolean) => {
     setShowModal(flag);
@@ -18,8 +18,8 @@ const useModalControl = () => {
     handleToggle,
     handleHeading,
     modalHeading,
-    modalContent,
-    setModalContent,
+    // modalContent,
+    // setModalContent,
   };
 };
 

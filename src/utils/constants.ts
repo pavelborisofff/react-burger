@@ -10,11 +10,11 @@ enum OrderStatus {
   done = "готов",
 }
 
-const ApiUrl: string = "https://norma.nomoreparties.space/api/";
+const API_URL: string = "https://norma.nomoreparties.space/api/";
 
 enum API {
   ingredients = "ingredients",
   orders = "orders",
 }
 
-export { Tabs, ApiUrl, OrderStatus, API };
+export { Tabs, API_URL, OrderStatus, API };

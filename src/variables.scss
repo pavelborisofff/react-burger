@@ -33,8 +33,8 @@ $base-size: 4px;
 
 @each $i in 15 20 25 30 {
   .py-#{$i} {
-    margin-top: calc(#{$offset-base-size} * #{$i});
-    margin-bottom: calc(#{$offset-base-size} * #{$i});
+    padding-top: calc(#{$offset-base-size} * #{$i});
+    padding-bottom: calc(#{$offset-base-size} * #{$i});
   }
 }
 

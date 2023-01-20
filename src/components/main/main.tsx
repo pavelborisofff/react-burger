@@ -24,7 +24,7 @@ const Main = () => {
   useEffect(() => {
     makeRequest(Requests.getData)
       .then((response) => {
-        setData(response);
+        setData(response as FilteredData);
       })
       .catch((error) => {
         console.log(error);
@@ -56,8 +56,8 @@ const Main = () => {
                     Что-то пошло не так :-/
                   </p>
                 )}
-                {data && <BurgerIngredients />}
-                {data && <BurgerConstructor />}
+                <BurgerIngredients />
+                <BurgerConstructor />
               </main>
             </OrderContext.Provider>
           </BunContext.Provider>

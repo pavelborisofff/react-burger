@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .tabsList {
   overflow-y: auto;
   height: calc(912px - 188px - 56px);
@@ -10,7 +12,7 @@
 .ingredientsList {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: calc(var(--offset-base-size) * 6);
+  grid-gap: calc(#{$offset-base-size} * 6);
 }
 
 .ingredientsItem {
@@ -25,7 +27,7 @@
 
 .ingredientsItem > svg {
   position: absolute;
-  margin: calc(var(--offset-base-size) * 2);
+  margin: calc(#{$base-size} * 2);
 }
 
 .counter {

@@ -1,5 +1,7 @@
+@import "../../variables.scss";
+
 .header {
-  background-color: var(--color-modal-bg);
+  background-color: $color-modal-bg;
 }
 
 .nav,
@@ -8,10 +10,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: calc(var(--offset-base-size) * 2);
-  color: var(--text-dark-grey);
+  gap: calc(#{$base-size} * 2);
+  color: $text-dark-grey;
 }
 
 .active {
-  color: var(--text-primary-light);
+  color: $text-primary-light;
 }

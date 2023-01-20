@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 
 import {
   Counter,
@@ -18,16 +18,16 @@ import { Modal } from "../modal/modal";
 
 import styles from "./burger-ingredients.module.scss";
 
+
 const Ingredient = (props: Data) => {
   const {
     showModal,
     handleToggle,
     handleHeading,
-    setModalContent,
     modalHeading,
-    modalContent,
   } = useModalControl();
   const { bun } = useContext(BunContext);
+  const [modalContent, setModalContent] = useState<ReactNode | null>(null);
   const { recipe } = useContext(ConstructorContext);
   const count = recipe.filter((item) => item._id === props._id).length;
 
@@ -42,13 +42,13 @@ const Ingredient = (props: Data) => {
       {"" + props.type === "bun" && bun?._id === props._id && (
         <LockIcon type="primary" />
       )}
-      <Modal
+      {modalContent && <Modal
         showModal={showModal}
         onClose={() => handleToggle(false)}
         modalHeading={modalHeading}
       >
         {modalContent}
-      </Modal>
+      </Modal>}
       {!!count && (
         <Counter
           count={count}

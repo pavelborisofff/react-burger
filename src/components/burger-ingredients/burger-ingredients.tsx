@@ -10,8 +10,9 @@ import Ingredient from "./ingredient";
 
 import styles from "./burger-ingredients.module.scss";
 
+
 const BurgerIngredients = () => {
-  const [current, setCurrent] = useState(Tabs.bun);
+  const [current, setCurrent] = useState<Tabs>(Tabs.bun);
 
   return (
     <>

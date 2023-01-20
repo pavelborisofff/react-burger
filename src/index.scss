@@ -20,8 +20,8 @@ a {
 /*  main */
 html {
   font-family: "Jet Brains Mono";
-  background-color: var(--color-bg);
-  color: var(--text-primary-light);
+  background-color: $color-bg;
+  color: $text-primary-light;
 }
 
 /* modal */

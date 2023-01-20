@@ -1,4 +1,4 @@
-import { useReducer, useContext, useEffect } from "react";
+import { useReducer, useContext, useEffect, ReactNode, useState } from "react";
 
 import {
   ConstructorElement,
@@ -23,12 +23,44 @@ import {
 import styles from "./burger-constructor.module.scss";
 import { BurgerApi, Requests } from "../../hooks/burger-api";
 
-function reducer(state: number, action: number) {
-  return state + action;
+
+enum CountAction {
+  ADD = 'add',
+  REMOVE = 'remove',
+}
+
+interface ICountAction {
+  type: CountAction;
+  payload: number;
+}
+
+interface ICountState {
+  count: number;
+}
+
+
+function reducer(state: ICountState, action: ICountAction) {
+  const { type, payload } = action;
+
+  switch (type) {
+    case CountAction.ADD:
+      return {
+        ...state,
+        count: state.count + payload,
+      };
+    case CountAction.REMOVE:
+      return {
+        ...state,
+        count: state.count - payload,
+      };
+    default:
+      return state;
+  };
 }
 
 const BurgerConstructor = () => {
-  const [total, dispatch] = useReducer(reducer, 0);
+  const [total, dispatch] = useReducer(reducer, {count: 0});
+  const [modalContent, setModalContent] = useState<ReactNode | null>(null);
   const { data } = useContext(IngredientsContext);
   const { recipe, setRecipe } = useContext(ConstructorContext);
   const { bun, setBun } = useContext(BunContext);
@@ -36,9 +68,7 @@ const BurgerConstructor = () => {
     showModal,
     handleToggle,
     handleHeading,
-    setModalContent,
     modalHeading,
-    modalContent,
   } = useModalControl();
   const { makeRequest } = BurgerApi();
   const { setNumber } = useContext(OrderContext);
@@ -50,7 +80,7 @@ const BurgerConstructor = () => {
 
     makeRequest(Requests.postOrder, payload as Payload)
       .then((response) => {
-        setNumber(response);
+        setNumber(response as number);
       })
       .catch((error) => {
         console.log(error);
@@ -73,10 +103,10 @@ const BurgerConstructor = () => {
     if (data && "bun" in data) {
       const randomBun =
         data["bun" as keyof FilteredData][
-          Math.floor(Math.random() * data["bun" as keyof FilteredData].length)
+        Math.floor(Math.random() * data["bun" as keyof FilteredData].length)
         ];
       setBun(randomBun);
-      dispatch(+randomBun.price * 2);
+      dispatch({ type: CountAction.ADD, payload: randomBun.price * 2 });
 
       const randomArray = getRandomArray(
         data["main" as keyof FilteredData].concat(
@@ -84,25 +114,25 @@ const BurgerConstructor = () => {
         )
       );
       setRecipe(randomArray);
-      randomArray.forEach((item) => dispatch(+item.price));
+      randomArray.forEach((item) => dispatch({ type: CountAction.ADD, payload: item.price }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]); // TODO need just to generate random recipe
 
   const handleDelete = (id: string, price: number) => {
     setRecipe(recipe.filter((item) => item._id !== id));
-    dispatch(-price);
+    dispatch({ type: CountAction.REMOVE, payload: price });
   };
 
   return (
     <>
-      <Modal
+      {modalContent && <Modal
         showModal={showModal}
         onClose={() => handleToggle(false)}
         modalHeading={modalHeading}
       >
         {modalContent}
-      </Modal>
+      </Modal>}
       <section className={`${styles.section} section`}>
         {/* top */}
         <ConstructorElement
@@ -148,7 +178,7 @@ const BurgerConstructor = () => {
           <p
             className={`${styles.orderPrice} text text_type_digits-medium mr-2`}
           >
-            {total ? total : 0}
+            {total ? total.count : 0}
           </p>
           <CurrencyIcon type="primary" />
           <Button
