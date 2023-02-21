@@ -16,10 +16,10 @@ import styles from "./main.module.scss";
 
 const Main = () => {
   const { isLoading, isError, makeRequest } = BurgerApi();
-  const [data, setData] = useState<FilteredData | null>(null);
-  const [bun, setBun] = useState<Data | null>(null);
-  const [recipe, setRecipe] = useState<Data[]>([] as Data[]);
-  const [number, setNumber] = useState<number | null>(null);
+  const [ data, setData ] = useState<FilteredData | null>(null);
+  const [ bun, setBun ] = useState<Data | null>(null);
+  const [ recipe, setRecipe ] = useState<Data[]>([] as Data[]);
+  const [ number, setNumber ] = useState<number | null>(null);
 
   useEffect(() => {
     makeRequest(Requests.getData)
@@ -30,7 +30,7 @@ const Main = () => {
         console.log(error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // TODO beacuse we need Data only once on the first render
+  }, []); // TODO because we need Data only once on the first render
 
   return (
     <>

@@ -27,7 +27,7 @@
 
 .ingredientsItem > svg {
   position: absolute;
-  margin: calc(#{$base-size} * 2);
+  margin: calc(#{$offset-base-size} * 2);
 }
 
 .counter {
