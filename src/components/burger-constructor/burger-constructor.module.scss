@@ -1,12 +1,14 @@
+@import "../../variables.scss";
+
 .section {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--offset-base-size) * 4);
+  gap: calc(#{$base-size} * 4);
   /* height: calc(912px - 88px - 100px - 56px); */
 }
 
 .constructorElement {
-  flex-grow:  0;
+  flex-grow: 0;
 }
 
 .scrollableSection {
@@ -21,10 +23,10 @@
 
 .orderWrapper {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .button {
-  margin-left: calc(var(--offset-base-size) * 4);
+  margin-left: calc(#{$base-size} * 4);
 }

@@ -1,0 +1,46 @@
+@import "./variables.scss";
+
+/* reset */
+* {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*  main */
+html {
+  font-family: "Jet Brains Mono";
+  background-color: $color-bg;
+  color: $text-primary-light;
+}
+
+/* modal */
+.modal-open {
+  overflow: hidden;
+}
+
+#modal-root {
+  position: flex;
+  z-index: 1000;
+}
+
+/* common */
+.container {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.section {
+  overflow-y: hidden;
+}

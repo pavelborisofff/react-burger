@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+.header {
+  background-color: $color-modal-bg;
+}
+
+.nav,
+.menuList,
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(#{$base-size} * 2);
+  color: $text-dark-grey;
+}
+
+.active {
+  color: $text-primary-light;
+}

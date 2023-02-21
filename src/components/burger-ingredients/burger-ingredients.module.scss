@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+.tabsList {
+  overflow-y: auto;
+  height: calc(912px - 188px - 56px);
+}
+
+.navList {
+  display: flex;
+}
+
+.ingredientsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: calc(#{$offset-base-size} * 6);
+}
+
+.ingredientsItem {
+  text-align: center;
+  position: relative;
+  cursor: move;
+}
+
+.ingredientsItem:has(> svg) {
+  opacity: 40%;
+}
+
+.ingredientsItem > svg {
+  position: absolute;
+  margin: calc(#{$base-size} * 2);
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ingredientsPrice {
+  display: flex;
+  justify-content: center;
+}

@@ -1,35 +1,91 @@
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import { DataUrl } from '../utils/constants';
-import { GetData } from '../utils/types';
+import { API_URL, API } from "../utils/constants";
+import { Data, FilteredData, Payload } from "../types/types";
+
+enum Method {
+  GET = "get",
+  POST = "post",
+}
+
+enum Requests {
+  getData = "getData",
+  postOrder = "postOrder",
+}
+
+type typeState = {
+  isLoading: boolean;
+  isError: boolean;
+};
 
 
-const useGetData = (dataUrl: string = DataUrl) => {
-  const [state, setState] = useState<GetData>({
+type typeGetResponse = {
+  data: Data[],
+  sucess: string
+}
+
+type typePostOrder = {
+  name: string,
+  order: {
+    number: number
+  },
+  success: string
+}
+
+
+const BurgerApi = () => {
+  const [state, setState] = useState<typeState>({
     isLoading: false,
-    isError: false,
-    data: [],
+    isError: false
   });
 
-  useEffect(() => {  
-    getData();
-  // eslint-disable-next-line
-  }, []);
+  const filterData = (data: Data[]) => {
+    const filteredData = {} as FilteredData;
 
-  const getData = async () => {
+    data.forEach((item: Data) => {
+      const key = item.type;
+
+      if (!filteredData[item.type]) filteredData[key] = [];
+      filteredData[key]?.push(item);
+    });
+
+    return filteredData;
+  };
+
+  const makeRequest = async (
+    request: Requests = Requests.getData,
+    payload?: Payload,
+    url: string = API_URL
+  ) => {
     setState({ ...state, isLoading: true });
 
     try {
-      const result = await axios(DataUrl);
-      setState({ ...state, isLoading: false, data: result.data.data });      
+      let result;
+      
+      switch (request) {
+        case Requests.getData:
+          result = await axios<typeGetResponse>(url + API.ingredients, { method: Method.GET });
+          setState({ ...state, isLoading: false });
+          return filterData(result.data.data);
+          
+        case Requests.postOrder:
+          result = await axios<typePostOrder>(url + API.orders, {
+            method: Method.POST,
+            data: payload,
+          });
+          setState({ ...state, isLoading: false });
+          return result.data.order.number as number;
+        default:
+          throw new Error('Unknown method');
+      }
     } catch (error) {
       setState({ ...state, isLoading: false, isError: true });
     }
   };
 
-  return state;
-}
+  return { ...state, makeRequest };
+};
 
-export { useGetData };
+export { BurgerApi, Requests };
