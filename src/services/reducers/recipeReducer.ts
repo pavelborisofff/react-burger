@@ -1,7 +1,7 @@
 
 
 import { Data } from '../../types/types';
-import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET } from '../actions/recipeActions';
+import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET, INGREDIENTS_RESET } from '../actions/recipeActions';
 
 
 interface IRecipeState {
@@ -72,7 +72,14 @@ const recipeReducer = (state = initialRecipe, action: any):IRecipeState => {
         ...state,
         usedIngredients: action.payload,
       };
-
+    case INGREDIENTS_RESET:
+      return {
+        ...state,
+        usedIngredients: [],
+        bun: null,
+        bill: 0,
+        usedCount: {},
+      };
     default:
       return state;
   }

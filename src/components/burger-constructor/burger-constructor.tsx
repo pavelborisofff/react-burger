@@ -125,6 +125,7 @@ const BurgerConstructor = () => {
           size="large"
           extraClass={`${styles.button}`}
           onClick={() => handlerOrder()}
+          disabled={!bun}
         >
           Оформить заказ
         </Button>
