@@ -1,32 +1,66 @@
 @import "../../variables.scss";
 
 .section {
-  display: flex;
-  flex-direction: column;
-  gap: calc(#{$offset-base-size} * 4);
-  /* height: calc(912px - 88px - 100px - 56px); */
+    display: flex;
+    flex-direction: column;
+    gap: calc(#{$offset-base-size} * 4);
+    /* height: calc(912px - 88px - 100px - 56px); */
+}
+
+.empty {
+    text-align: center;
+    max-width: 536px;
 }
 
 .constructorElement {
-  flex-grow: 0;
+    flex-grow: 0;
 }
 
 .scrollableSection {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .constructorItem {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .orderWrapper {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .button {
-  margin-left: calc(#{$offset-base-size} * 4);
+    margin-left: calc(#{$offset-base-size} * 4);
+}
+
+
+.constructor-element {
+    padding: 16px 24px;
+    display: inline-block;
+    border-radius: var(--common-border-radius-s);
+    background: var(--background-element);
+    max-width: 536px;
+    width: 100%;
+    max-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &_pos_top {
+        border-radius: var(--top-constructor-item-border-radius);
+    }
+
+    &_pos_bottom {
+        border-radius: var(--bottom-constructor-item-border-radius);
+    }
 }
