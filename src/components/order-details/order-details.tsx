@@ -15,7 +15,9 @@ const OrderDetails = () => {
       <p className={`${styles.number} text text_type_digits-large`}>
         {orderNumber || "---"}
       </p>
-      <p className={`text text_type_main-medium pt-8`}>Идентификатор заказа</p>
+      <p className={`text text_type_main-medium pt-8`}>
+        {orderNumber ? 'Идентификатор заказа' : 'Загрузка...'}
+      </p>
       <div className={`${styles.icon} my-15`}>
         <CheckMarkIcon type="primary" />
       </div>

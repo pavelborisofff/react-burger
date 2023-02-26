@@ -46,6 +46,7 @@ export const orderReducer = (state = initialOrder, action: any) => {
       return {
         ...state,
         orderNumber: null,
+        name: '',
         isLoading: false,
         isError: false
       };

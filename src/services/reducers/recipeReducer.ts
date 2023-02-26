@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
+
 
 import { Data } from '../../types/types';
-import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET } from '../actions/recipeActions';
+import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET, INGREDIENTS_RESET } from '../actions/recipeActions';
 
 
 interface IRecipeState {
@@ -23,8 +23,6 @@ const initialRecipe:IRecipeState = {
 const recipeReducer = (state = initialRecipe, action: any):IRecipeState => {
   switch (action.type) {
     case INGREDIENT_ADD:
-      action.payload.uuid = uuidv4();
-
       return {
         ...state,
         usedIngredients: [...state.usedIngredients, action.payload],
@@ -74,7 +72,14 @@ const recipeReducer = (state = initialRecipe, action: any):IRecipeState => {
         ...state,
         usedIngredients: action.payload,
       };
-
+    case INGREDIENTS_RESET:
+      return {
+        ...state,
+        usedIngredients: [],
+        bun: null,
+        bill: 0,
+        usedCount: {},
+      };
     default:
       return state;
   }

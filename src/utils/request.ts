@@ -18,8 +18,6 @@ async function request({endpoint, baseUrl = API_URL, method = 'GET', data}:IRequ
     headers: { 'Content-Type': 'application/json' },
     data: data,
   };
-
-  console.log('requestOptions', requestOptions);
   
   return await axios(baseUrl + endpoint, requestOptions)
     .then(response => response.data)
