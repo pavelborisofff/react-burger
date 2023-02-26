@@ -68,7 +68,7 @@ export const RecipeItem = ({ item, index }) => {
   dragItem(dropItem(itemRef));
 
   return (
-    <div className={`${styles.constructorItem}`} key={item.uuid} ref={itemRef}>
+    <div className={`${styles.constructorItem}`} ref={itemRef}>
       <DragIcon type="primary" />
       <ConstructorElement
         text={item.name}
