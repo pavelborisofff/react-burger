@@ -7,62 +7,62 @@ $text-dark-grey: #8585ad;
 $text-disabled: #3a3a55;
 
 /* sizes */
-$base-size: 4px;
+$offset-base-size: 4px;
 
 /* padding */
 @for $i from 1 through 10 {
-  .px-#{$i} {
-    padding-left: calc(#{$offset-base-size} * #{$i});
-    padding-right: calc(#{$offset-base-size} * #{$i});
-  }
+    .px-#{$i} {
+        padding-left: calc(#{$offset-base-size} * #{$i});
+        padding-right: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @each $i in 15 20 25 30 {
-  .px-#{$i} {
-    padding-left: calc(#{$offset-base-size} * #{$i});
-    padding-right: calc(#{$offset-base-size} * #{$i});
-  }
+    .px-#{$i} {
+        padding-left: calc(#{$offset-base-size} * #{$i});
+        padding-right: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @for $i from 1 through 10 {
-  .py-#{$i} {
-    padding-top: calc(#{$offset-base-size} * #{$i});
-    padding-bottom: calc(#{$offset-base-size} * #{$i});
-  }
+    .py-#{$i} {
+        padding-top: calc(#{$offset-base-size} * #{$i});
+        padding-bottom: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @each $i in 15 20 25 30 {
-  .py-#{$i} {
-    padding-top: calc(#{$offset-base-size} * #{$i});
-    padding-bottom: calc(#{$offset-base-size} * #{$i});
-  }
+    .py-#{$i} {
+        padding-top: calc(#{$offset-base-size} * #{$i});
+        padding-bottom: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 /* margin */
 @for $i from 1 through 10 {
-  .px-#{$i} {
-    margin-left: calc(#{$offset-base-size} * #{$i});
-    margin-right: calc(#{$offset-base-size} * #{$i});
-  }
+    .mx-#{$i} {
+        margin-left: calc(#{$offset-base-size} * #{$i});
+        margin-right: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @each $i in 15 20 25 30 {
-  .px-#{$i} {
-    margin-left: calc(#{$offset-base-size} * #{$i});
-    margin-right: calc(#{$offset-base-size} * #{$i});
-  }
+    mpx-#{$i} {
+        margin-left: calc(#{$offset-base-size} * #{$i});
+        margin-right: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @for $i from 1 through 10 {
-  .py-#{$i} {
-    margin-top: calc(#{$offset-base-size} * #{$i});
-    margin-bottom: calc(#{$offset-base-size} * #{$i});
-  }
+    .my-#{$i} {
+        margin-top: calc(#{$offset-base-size} * #{$i});
+        margin-bottom: calc(#{$offset-base-size} * #{$i});
+    }
 }
 
 @each $i in 15 20 25 30 {
-  .py-#{$i} {
-    margin-top: calc(#{$offset-base-size} * #{$i});
-    margin-bottom: calc(#{$offset-base-size} * #{$i});
-  }
+    .my-#{$i} {
+        margin-top: calc(#{$offset-base-size} * #{$i});
+        margin-bottom: calc(#{$offset-base-size} * #{$i});
+    }
 }

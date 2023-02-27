@@ -9,10 +9,7 @@ const ModalOverlay = ({ onClose, children }: ModalOverlayProps) => {
 
   const handlerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-
-    if (e.target === ref.current) {
-      onClose();
-    }
+    e.target === ref.current && onClose();
   };
 
   return (

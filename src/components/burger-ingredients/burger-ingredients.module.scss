@@ -19,15 +19,21 @@
   text-align: center;
   position: relative;
   cursor: move;
+
+  & .isDrag,
+  &:has(> svg) {
+    opacity: 40%;
+  }
+
+  & > img {
+    pointer-events: none;
+  }
 }
 
-.ingredientsItem:has(> svg) {
-  opacity: 40%;
-}
 
 .ingredientsItem > svg {
   position: absolute;
-  margin: calc(#{$base-size} * 2);
+  margin: calc(#{$offset-base-size} * 2);
 }
 
 .counter {

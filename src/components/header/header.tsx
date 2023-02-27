@@ -5,7 +5,8 @@ import {
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from "./app-header.module.scss";
+import styles from "./header.module.scss";
+
 
 export type NavItemProps = {
   text: string;

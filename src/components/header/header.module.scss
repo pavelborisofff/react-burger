@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: calc(#{$base-size} * 2);
+  gap: calc(#{$offset-base-size} * 2);
   color: $text-dark-grey;
 }
 

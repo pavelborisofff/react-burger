@@ -1,57 +1,58 @@
-import { ReactNode, useContext, useState } from "react";
-
 import {
   Counter,
   CurrencyIcon,
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import { Data } from "../../types/types";
-import {
-  BunContext,
-  ConstructorContext,
-} from "../../contexts/constructor-context";
-import { useModalControl } from "../../hooks/modal-control";
+import { useDrag } from "react-dnd";
 
 import { IngredientDetails } from "../ingredients-details/ingredients";
-import { Modal } from "../modal/modal";
 
 import styles from "./burger-ingredients.module.scss";
 
+import { useDispatch, useSelector } from "react-redux";
+import { MODAL_OPEN } from '../../services/actions/modalActions';
+
+import { Data } from "../../types/types";
+import { RootState } from '../../services';
+
 
 const Ingredient = (props: Data) => {
-  const {
-    showModal,
-    handleToggle,
-    handleHeading,
-    modalHeading,
-  } = useModalControl();
-  const { bun } = useContext(BunContext);
-  const [modalContent, setModalContent] = useState<ReactNode | null>(null);
-  const { recipe } = useContext(ConstructorContext);
-  const count = recipe.filter((item) => item._id === props._id).length;
+  const dispatch = useDispatch();
+  const { bun, usedCount } = useSelector((store: RootState) => store.recipe);
 
   const handleIngredient = () => {
-    handleHeading("Детали ингридиента");
-    setModalContent(<IngredientDetails {...props} />);
-    handleToggle(true);
+    dispatch({
+      type: MODAL_OPEN,
+      payload: {
+        heading: 'Детали ингридиента',
+        content: <IngredientDetails {...props} />
+      }
+    });
   };
 
+  const [{ isDrag }, dragRef] = useDrag({
+    type: 'ingredient',
+    item: { ...props },
+    collect: monitor => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
   return (
-    <li className={`${styles.ingredientsItem}`} onClick={handleIngredient}>
+    <li className={`${styles.ingredientsItem} ${isDrag ? styles.isDrag : ''}`} onClick={handleIngredient} ref={bun?._id === props._id ? null : dragRef}>
       {"" + props.type === "bun" && bun?._id === props._id && (
-        <LockIcon type="primary" />
+        <>
+          <LockIcon type="primary" />
+          <Counter
+            count={2}
+            size="default"
+            extraClass={`${styles.counter} m-1`}
+          />
+        </>
       )}
-      {modalContent && <Modal
-        showModal={showModal}
-        onClose={() => handleToggle(false)}
-        modalHeading={modalHeading}
-      >
-        {modalContent}
-      </Modal>}
-      {!!count && (
+      {"" + props.type !== "bun" && !!usedCount[props._id] && (
         <Counter
-          count={count}
+          count={usedCount[props._id]}
           size="default"
           extraClass={`${styles.counter} m-1`}
         />
