@@ -16,7 +16,7 @@ import { RecipeItem } from './recipe-item';
 
 import { MODAL_OPEN } from '../../services/actions/modalActions';
 import { OrderDetails } from '../order-details/order-details';
-import { orderPost } from '../../services/actions/orderActions';
+import { ORDER_RESET, orderPost } from '../../services/actions/orderActions';
 
 
 const BurgerConstructor = () => {
@@ -27,7 +27,9 @@ const BurgerConstructor = () => {
   const handlerOrder = async () => {
     const body = {
       ingredients: [...usedIngredients.map(item => item._id), bun?._id || null]
-    }
+    };
+
+    dispatch({ type: ORDER_RESET });
     dispatch(orderPost(body as any) as any); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
     dispatch({
       type: MODAL_OPEN,

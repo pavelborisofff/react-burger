@@ -11,7 +11,7 @@ export interface IModal {
   payload: any | null;
 }
 
-// export const hideModal = () => (dispatchFunc: ({type}:IModal) => void) => {
-//   dispatchFunc({type: MODAL_CLOSE, payload: null});
+// export const hideModal = () => (dispatch: ({type}:IModal) => void) => {
+//   dispatch({type: MODAL_CLOSE, payload: null});
 // };
 

@@ -9,7 +9,6 @@ import styles from "./modal.module.scss";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services';
 import { MODAL_CLOSE } from '../../services/actions/modalActions';
-import { ORDER_RESET } from '../../services/actions/orderActions';
 
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
@@ -19,10 +18,9 @@ const body = document.querySelector("body") as HTMLElement;
 const Modal = () => {
   const dispatch = useDispatch()
   const { payload } = useSelector((store: RootState) => store.modal);
-  const { orderNumber } = useSelector((store: RootState) => store.order);
+
   
   const onClose = () => {
-    if (orderNumber) dispatch({ type: ORDER_RESET });
     dispatch({ type: MODAL_CLOSE })
   };
 

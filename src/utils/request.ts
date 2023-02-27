@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { API, API_URL } from './constants';
-import { AnyCnameRecord } from 'dns';
 
 
 interface IRequest {

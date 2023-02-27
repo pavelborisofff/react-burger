@@ -1,3 +1,4 @@
+import { AppDispatch } from '..';
 import { API } from '../../utils/constants';
 import request from '../../utils/request';
 import { INGREDIENTS_RESET } from './recipeActions';
@@ -12,15 +13,15 @@ export type Payload = {
   ingredients: string[];
 };
 
-export const orderPost = (data?: Payload) => async (dispatchFunc: any) => {
+export const orderPost = (data?: Payload) => async (dispatch: AppDispatch) => {
 
-  dispatchFunc({ type: ORDER_REQUEST });
+  dispatch({ type: ORDER_REQUEST });
 
   try {
     const response = await request({ endpoint: API.orders, method: "POST", data: data});
-    dispatchFunc({ type: ORDER_REQUEST_SUCCESS, orderNumber: response.order.number, name: response.name })
-    dispatchFunc({ type: INGREDIENTS_RESET });
+    dispatch({ type: ORDER_REQUEST_SUCCESS, orderNumber: response.order.number, name: response.name })
+    dispatch({ type: INGREDIENTS_RESET });
   } catch (error) {
-    dispatchFunc({ type: ORDER_REQUEST_ERROR });
+    dispatch({ type: ORDER_REQUEST_ERROR });
   }
 };

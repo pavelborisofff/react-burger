@@ -1,3 +1,4 @@
+import { AppDispatch } from '..';
 import { Data } from '../../types/types';
 import { API, Tabs } from '../../utils/constants';
 import request from '../../utils/request';
@@ -15,10 +16,6 @@ export const INGREDIENTS_REQUEST_ERROR = 'INGREDIENTS_REQUEST_ERROR';
 
 export interface IPreparedData extends Partial<Record<Tabs, Data[]>> {}
 
-interface IIngredients {
-  type: string;
-  ingredients?: IPreparedData;
-}
 
 interface IIngredientsResponse {
   success: boolean;
@@ -44,15 +41,15 @@ function sortByTypes (arr: IIngredientsResponse):IPreparedData {
 }
 
 
-export const getIngredients = () => async (dispatchFunc: ({type}:IIngredients) => void) => {
-  dispatchFunc({type: INGREDIENTS_REQUEST});
+export const getIngredients = () => async (dispatch: AppDispatch) => {
+  dispatch({type: INGREDIENTS_REQUEST});
 
   try {
     const response:IIngredientsResponse = await request({endpoint: API.ingredients});
     const preparedData:IPreparedData = sortByTypes(response);
-    dispatchFunc({type: INGREDIENTS_REQUEST_SUCCESS,ingredients: preparedData});
+    dispatch({type: INGREDIENTS_REQUEST_SUCCESS,ingredients: preparedData});
   } catch (error) {
     console.log(error);
-    dispatchFunc({type: INGREDIENTS_REQUEST_ERROR});
+    dispatch({type: INGREDIENTS_REQUEST_ERROR});
   }
 }
