@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { IModal, MODAL_OPEN, MODAL_CLOSE } from '../actions/modalActions';
+import { Pages } from '../../utils/constants';
 
 
 interface IModalPayload {
@@ -10,11 +11,13 @@ interface IModalPayload {
 interface IModalState {
   isOpen: boolean;
   payload: IModalPayload | null;
+  prev?: Pages | null;
 }
 
 const initialModal:IModalState = {
   isOpen: false,
   payload: null,
+  prev: null,
 };
 
 
@@ -25,12 +28,14 @@ const modalReducer = (state = initialModal, action: IModal):IModalState => {
         ...state,
         isOpen: true,
         payload: action.payload,
+        prev: action.prev,
       };
     case MODAL_CLOSE:
       return {
         ...state,
         isOpen: false,
         payload: null,
+        prev: null,
       };
     default:
       return state;

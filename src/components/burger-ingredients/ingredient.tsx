@@ -4,6 +4,7 @@ import {
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
+import { useNavigate } from "react-router-dom";
 
 import { IngredientDetails } from "../ingredients-details/ingredients";
 
@@ -14,19 +15,23 @@ import { MODAL_OPEN } from '../../services/actions/modalActions';
 
 import { Data } from "../../types/types";
 import { RootState } from '../../services';
+import { Pages } from '../../utils/constants';
 
 
 const Ingredient = (props: Data) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { bun, usedCount } = useSelector((store: RootState) => store.recipe);
 
-  const handleIngredient = () => {
+  const handleIngredient = () => {  
+    navigate(`/ingredients/${props._id}`, { replace: true });
     dispatch({
       type: MODAL_OPEN,
       payload: {
         heading: 'Детали ингридиента',
-        content: <IngredientDetails {...props} />
-      }
+        content: <IngredientDetails {...props} />,
+      },
+      prev: Pages.main,
     });
   };
 

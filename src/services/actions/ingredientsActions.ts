@@ -47,7 +47,11 @@ export const getIngredients = () => async (dispatch: AppDispatch) => {
   try {
     const response:IIngredientsResponse = await request({endpoint: API.ingredients});
     const preparedData:IPreparedData = sortByTypes(response);
-    dispatch({type: INGREDIENTS_REQUEST_SUCCESS,ingredients: preparedData});
+    dispatch({
+      type: INGREDIENTS_REQUEST_SUCCESS, 
+      ingredients: preparedData,
+      ingredientsRaw: response.data
+    });
   } catch (error) {
     console.log(error);
     dispatch({type: INGREDIENTS_REQUEST_ERROR});

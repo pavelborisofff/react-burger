@@ -19,9 +19,16 @@ a {
 
 /*  main */
 html {
+    height: 100%;
     font-family: "Jet Brains Mono";
     background-color: $color-bg;
     color: $text-primary-light;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* modal */
@@ -43,4 +50,28 @@ html {
 
 .section {
     overflow-y: hidden;
+}
+
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.center-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.link {
+    color: $text-link;
+    cursor: pointer;
+}
+
+.error {
+    color: red !important;
 }

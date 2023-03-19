@@ -9,6 +9,7 @@ import styles from "./modal.module.scss";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services';
 import { MODAL_CLOSE } from '../../services/actions/modalActions';
+import { useNavigate } from 'react-router-dom';
 
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
@@ -17,10 +18,14 @@ const body = document.querySelector("body") as HTMLElement;
 
 const Modal = () => {
   const dispatch = useDispatch()
-  const { payload } = useSelector((store: RootState) => store.modal);
+  const navigate = useNavigate();
+  const { payload, prev } = useSelector((store: RootState) => store.modal);
 
   
   const onClose = () => {
+    if (prev) {
+      navigate(prev, { replace: true });
+    }
     dispatch({ type: MODAL_CLOSE })
   };
 

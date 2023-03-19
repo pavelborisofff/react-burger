@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 import useIngredients from '../../hooks/api';
 import Header from "../header/header";
@@ -18,24 +19,47 @@ import ForgotPassword from '../../pages/forgot-password';
 import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import Ingredients from '../../pages/ingredients';
+import { ProtectedRoute } from '../protected-route/protected-route';
+import Order from '../../pages/order';
+
 
 function App() {
-  const { isOpen } = useSelector((store: RootState) => store.modal); 
+  const { isOpen, prev } = useSelector((store: RootState) => store.modal);  
+  const { isAuth } = useSelector((store: RootState) => store.auth); 
   
-
-  useIngredients();
+  useIngredients()
   
   return (
     <Router>
       <Header />
       <Routes>
         <Route path={Pages.main} element={<Main />} />
-        <Route path={Pages.login} element={<Login />} />
-        <Route path={Pages.register} element={<Register />} />
-        <Route path={Pages.forgotPassword} element={<ForgotPassword />} />
-        <Route path={Pages.resetPassword} element={<ResetPassword />} />
-        <Route path={Pages.profile} element={<Profile />} />
-        <Route path={Pages.ingredients} element={<Ingredients />} />
+        <Route path={Pages.order} element={<Order />} />
+        <Route path={Pages.login} element={<ProtectedRoute>
+          <Login />
+        </ProtectedRoute>} />
+        <Route path={Pages.register} element={<ProtectedRoute>
+          <Register />
+        </ProtectedRoute>} />
+        <Route path={Pages.forgotPassword} element={<ProtectedRoute>
+          <ForgotPassword />
+        </ProtectedRoute>} />
+        <Route path={Pages.resetPassword} element={<ProtectedRoute>
+          <ResetPassword />
+        </ProtectedRoute>} />
+        <Route path={Pages.profile + '/*'} element={<ProtectedRoute>
+          <Profile />
+        </ProtectedRoute> } />
+        {!prev && 
+          <>
+              <Route path={Pages.ingredients + '/*'} element={<Ingredients />} />
+          </>
+        }
+        {prev && 
+          <>
+              <Route path={Pages.ingredients + '/*'} element={<Main />} />
+          </>
+        }
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
       {isOpen && <Modal />}

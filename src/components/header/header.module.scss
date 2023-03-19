@@ -17,3 +17,26 @@
 .active {
   color: $text-primary-light;
 }
+
+.menuList {
+    width: 100%;
+}
+
+.menuItem {
+    cursor: pointer;
+}
+
+.nav {
+    position: relative;
+}
+
+.nav>svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile {
+    margin-left: auto;
+}
