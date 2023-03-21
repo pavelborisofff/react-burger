@@ -17,27 +17,36 @@ import { RecipeItem } from './recipe-item';
 import { MODAL_OPEN } from '../../services/actions/modalActions';
 import { OrderDetails } from '../order-details/order-details';
 import { ORDER_RESET, orderPost } from '../../services/actions/orderActions';
+import { useNavigate } from 'react-router-dom';
+import { Pages } from '../../utils/constants';
 
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuth } = useSelector((store: RootState) => store.auth); 
 
   const { bun, usedIngredients, bill } = useSelector((store: RootState) => store.recipe);
 
   const handlerOrder = async () => {
-    const body = {
-      ingredients: [...usedIngredients.map(item => item._id), bun?._id || null]
-    };
+    if (!isAuth) {
+      navigate(Pages.login);
+    } else {
+      const body = {
+        ingredients: [...usedIngredients.map(item => item._id), bun?._id || null]
+      };
+  
+      dispatch({ type: ORDER_RESET });
+      dispatch(orderPost(body as any) as any); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
+      dispatch({
+        type: MODAL_OPEN,
+        payload: {
+          heading: 'Детали заказа',
+          content: <OrderDetails />
+        }
+      });
+    }
 
-    dispatch({ type: ORDER_RESET });
-    dispatch(orderPost(body as any) as any); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
-    dispatch({
-      type: MODAL_OPEN,
-      payload: {
-        heading: 'Детали заказа',
-        content: <OrderDetails />
-      }
-    });
   }
 
 

@@ -24,7 +24,7 @@ const Modal = () => {
   
   const onClose = () => {
     if (prev) {
-      navigate(prev, { replace: true });
+      navigate(-1);
     }
     dispatch({ type: MODAL_CLOSE })
   };

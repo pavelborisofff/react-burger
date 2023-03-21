@@ -200,12 +200,13 @@ export const getUser = () => async (dispatch: AppDispatch) => {
       user: response.user,
     });
   } catch (error: any) {
-    if (error.message && error.message === 'jwt expired') {      
+    if (error.message && (error.message === 'jwt expired' || error.message === 'jwt malformed')) {    
+        
       try {
         dispatch(tokenRefresh());
         return null;
       }
-      catch (error:any) {
+      catch (error: any) {
         throw new Error (error);
       }
     }
@@ -216,7 +217,7 @@ export const getUser = () => async (dispatch: AppDispatch) => {
 };
 
 
-interface IResetForm {
+export interface IResetForm {
   password: string,
   token: string,
 }

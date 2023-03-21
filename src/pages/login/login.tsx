@@ -3,15 +3,15 @@ import cn from 'classnames';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { Pages } from '../../utils/constants';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services';
-import { CLEAR_ERROR, ILoginForm, login } from '../../services/actions/authActions';
-import { AnyAction } from 'redux';
-import { Link, useLocation, useNavigate,  } from 'react-router-dom';
+import { ILoginForm, login } from '../../services/actions/authActions';
+import { Link, useNavigate,  } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 
 
-const initLogin:ILoginForm = {
+const initLogin = {
   email: '',
   password: '',
 }
@@ -19,30 +19,19 @@ const initLogin:ILoginForm = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ form, setForm ] = useState(initLogin);
-  const { user, isAuth, isError, message } = useSelector((store: RootState) => store.auth); 
-  
+  const { values, handleChange, handleSubmit } = useForm(initLogin);
+  const { isAuth, isError, message } = useSelector((store: RootState) => store.auth); 
+  const isFormValid = useMemo(() => !(values.email && values.password), [values.email, values.password]);
 
-  const onChange = (e:any) => {
-    e.preventDefault();   
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-    dispatch({ type: CLEAR_ERROR });
-  }
-
-  const onClick = (e:any) => {
-    e.preventDefault();
-
-    if (form.email && form.password) {
-      dispatch(login(form) as any);
-    }
+  const onSubmit = () => {
+    dispatch(login(values as any) as any);
   };
 
   useEffect(() => {
     if (isAuth) {
-      navigate(Pages.profile, { replace: true });
+      console.log('login isAuth', isAuth);
+      
+      navigate(-1);
     }
   }, [isAuth, navigate])
 
@@ -52,30 +41,31 @@ const Login = () => {
       <p className={cn('text text_type_main-medium center pb-6',  isError ? 'error' : '')}>
         {isError ? message : 'Вход'}
       </p>
-      <EmailInput
-        onChange={onChange}
-        value={form.email}
-        name={'email'}
-        placeholder='E-mail'
-        isIcon={false}
-        extraClass={cn('pb-6')}
-      />
-      <PasswordInput
-        onChange={onChange}
-        value={form.password}
-        name={'password'}
-        extraClass={cn('pb-6')}
-      />
-      <Button 
-        htmlType='button' 
-        type='primary' 
-        size='medium' 
-        extraClass='mb-20' 
-        onClick={onClick}
-        disabled={!(form.email && form.password)}
-      >
-        Войти
-      </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <EmailInput
+          onChange={handleChange}
+          value={values.email}
+          name={'email'}
+          placeholder='E-mail'
+          isIcon={false}
+          extraClass={cn('pb-6')}
+        />
+        <PasswordInput
+          onChange={handleChange}
+          value={values.password}
+          name={'password'}
+          extraClass={cn('pb-6')}
+        />
+        <Button 
+          htmlType='submit' 
+          type='primary' 
+          size='medium' 
+          extraClass='mb-20' 
+          disabled={isFormValid}
+        >
+          Войти
+        </Button>
+      </form>
       <p className={cn('text text_type_main-default text_color_inactive pb-4')}>
         Вы — новый пользователь? <Link className={cn('link')} to={Pages.register}>Зарегистрироваться</Link>
       </p>

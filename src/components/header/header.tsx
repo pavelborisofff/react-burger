@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
   BurgerIcon,
   ListIcon,
@@ -53,7 +53,9 @@ const AppHeader = () => {
             <ProfileIcon type='secondary' />
           </NavItem>
         </ul>
-        <Logo />
+        <Link to={Pages.main} className={styles.logo}>
+          <Logo />
+        </Link>
       </nav>
     </header>
   );

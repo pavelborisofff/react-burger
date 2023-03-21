@@ -21,49 +21,42 @@ import Profile from '../../pages/profile';
 import Ingredients from '../../pages/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Order from '../../pages/order';
+import { getUser } from '../../services/actions/authActions';
 
 
 function App() {
-  const { isOpen, prev } = useSelector((store: RootState) => store.modal);  
+  const { isOpen } = useSelector((store: RootState) => store.modal); 
   const { isAuth } = useSelector((store: RootState) => store.auth); 
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const background = location.state && location.state.background;
+
+  console.log('app isAuth', isAuth);
+    
+  // autologin
+  useEffect(() => {
+    dispatch(getUser() as any);
+  }, []);
   
-  useIngredients()
+  useIngredients();
   
   return (
-    <Router>
+    <>
       <Header />
-      <Routes>
+      <Routes location={background || location}>
         <Route path={Pages.main} element={<Main />} />
         <Route path={Pages.order} element={<Order />} />
-        <Route path={Pages.login} element={<ProtectedRoute>
-          <Login />
-        </ProtectedRoute>} />
-        <Route path={Pages.register} element={<ProtectedRoute>
-          <Register />
-        </ProtectedRoute>} />
-        <Route path={Pages.forgotPassword} element={<ProtectedRoute>
-          <ForgotPassword />
-        </ProtectedRoute>} />
-        <Route path={Pages.resetPassword} element={<ProtectedRoute>
-          <ResetPassword />
-        </ProtectedRoute>} />
-        <Route path={Pages.profile + '/*'} element={<ProtectedRoute>
-          <Profile />
-        </ProtectedRoute> } />
-        {!prev && 
-          <>
-              <Route path={Pages.ingredients + '/*'} element={<Ingredients />} />
-          </>
-        }
-        {prev && 
-          <>
-              <Route path={Pages.ingredients + '/*'} element={<Main />} />
-          </>
-        }
+        <Route path={Pages.login} element={<ProtectedRoute forAnonymous={true}><Login /></ProtectedRoute>} />
+        <Route path={Pages.register} element={<ProtectedRoute forAnonymous={true}><Register /></ProtectedRoute>} />
+        <Route path={Pages.forgotPassword} element={<ProtectedRoute forAnonymous={true}><ForgotPassword /></ProtectedRoute>} />
+        <Route path={Pages.resetPassword} element={<ProtectedRoute forAnonymous={true}><ResetPassword /></ProtectedRoute>} />
+        <Route path={Pages.profile + '/*'} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
+        <Route path={Pages.ingredients + '/*'} element={<Ingredients />} />
+        {background && <Route path={Pages.ingredients + '/*'} element={<Modal />} />}
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
       {isOpen && <Modal />}
-    </Router>
+    </>
   );
 }
 

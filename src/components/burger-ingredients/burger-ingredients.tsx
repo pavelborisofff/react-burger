@@ -86,7 +86,11 @@ const Group = (props: TabItemProps) => {
       <h2 className={`text text_type_main-medium`}>{props.title}</h2>
       <ul className={`${styles.ingredientsList}`}>
         {props.data &&
-          props.data.map((item) => <Ingredient key={item._id} {...item} />)}
+          props.data.map((item) => {
+            return (
+              <Ingredient key={item._id} {...item} />
+            );
+          })}
       </ul>
     </li>
   );

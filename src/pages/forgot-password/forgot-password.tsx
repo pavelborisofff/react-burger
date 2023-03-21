@@ -4,35 +4,26 @@ import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-de
 
 import { Pages } from '../../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services';
-import { CLEAR_ERROR, forgotPassword } from '../../services/actions/authActions';
+import { forgotPassword } from '../../services/actions/authActions';
+import { useForm } from '../../hooks/useForm';
 
 
-const initEmail: string = '';
+const initEmail = {
+  email: '',
+}
 
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ email, setEmail ] = useState(initEmail);
-  const { user, isAuth, isError, isForgot, message } = useSelector((store: RootState) => store.auth); 
+  const { values, handleChange, handleSubmit } = useForm(initEmail);
+  const { isError, isForgot, message } = useSelector((store: RootState) => store.auth); 
 
-
-  const onChange = (e:any) => {
-    e.preventDefault();   
-    setEmail(e.target.value);
-
-    dispatch({ type: CLEAR_ERROR });
-  }
-
-  const onClick = (e:any) => {
-    e.preventDefault();
-
-    if (email) {
-      dispatch(forgotPassword(email) as any);
-    }
+  const onSubmit = () => {
+    dispatch(forgotPassword(values.email) as any);
   };
 
   useEffect(() => {
@@ -41,31 +32,30 @@ const ForgotPassword = () => {
     }
   }, [isForgot, navigate]);
 
-
-
   return (
     <div className={cn('center-wrapper')}>
       <p className={cn('text text_type_main-medium center pb-6',  isError ? 'error' : '')}>
         {isError ? message : 'Восстановление пароля'}
       </p>
-      <EmailInput
-        onChange={onChange}
-        value={email}
-        name={'email'}
-        placeholder='Укажите e-mail'
-        isIcon={false}
-        extraClass={cn('pb-6')}
-      />
-      <Button 
-        htmlType='button' 
-        type='primary' 
-        size='medium' 
-        extraClass='mb-20'
-        onClick={onClick}
-        disabled={!email}
-      >
-        Восстановить
-      </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <EmailInput
+          onChange={handleChange}
+          value={values.email}
+          name={'email'}
+          placeholder='Укажите e-mail'
+          isIcon={false}
+          extraClass={cn('pb-6')}
+        />
+        <Button 
+          htmlType='submit' 
+          type='primary' 
+          size='medium' 
+          extraClass='mb-20'
+          disabled={!values.email}
+        >
+          Восстановить
+        </Button>
+      </form>
       <p className={cn('text text_type_main-default text_color_inactive pb-4')}>
         Вспомнили пароль? <Link className={cn('link')} to={Pages.login}>Войти</Link>
       </p>
@@ -74,7 +64,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-function dispatch(arg0: { type: string; }) {
-  throw new Error('Function not implemented.');
-}

@@ -8,41 +8,37 @@ import { getCookie } from '../../utils/cookie';
 
 
 interface IProtectedRoute {
-  redirectPath?: Pages,
   children: JSX.Element,
+  forAnonymous?: boolean,
+  redirectPath?: Pages,
 }
 
 
-const notForAuth = [
-  Pages.login as string,
-  Pages.register as string,
-  Pages.forgotPassword as string,
-  Pages.resetPassword as string,
-]
+// const notForAuth = [
+//   Pages.login as string,
+//   Pages.register as string,
+//   Pages.forgotPassword as string,
+//   Pages.resetPassword as string,
+// ]
 
 
-const ProtectedRoute = ({ children }:IProtectedRoute) => {
-  const dispatch = useDispatch();
+const ProtectedRoute = ({ children, forAnonymous = false }:IProtectedRoute) => {
   const location = useLocation();
+  
   const { isAuth } = useSelector((store: RootState) => store.auth);
-  const accessToken = getCookie('accessToken');
-  const refreshToken = getCookie('refreshToken');
+  const from = location.state?.from || '/';
+  console.log('from', from);
+  
 
-  useEffect(() => {
-    if (!isAuth && (!accessToken || !refreshToken)) {
-      dispatch(getUser() as any );
-    } 
-  }, [accessToken, dispatch, isAuth, location, refreshToken])
+  if (forAnonymous && isAuth) {
+    return <Navigate to={from} />;
+  } 
 
-  if (isAuth && notForAuth.includes(location.pathname)) {
-    return <Navigate to={Pages.main} replace/>;
-  } else if (!isAuth && !notForAuth.includes(location.pathname)) {
-    return <Navigate to={Pages.login} replace/>;
-  // } else if (!auth && notForAuth.includes(path)) {
-  //   return children;
-  } else {
-    return children;
+  if (!forAnonymous && !isAuth) {
+    return <Navigate to={Pages.login} state={{ from: location }}/>;
   }
+
+  return children;
 }
 
 export { ProtectedRoute };
