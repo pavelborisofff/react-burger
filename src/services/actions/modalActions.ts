@@ -10,9 +10,20 @@ export enum MODAL_ACTIONS {
 
 export interface IModal {
   type: keyof typeof MODAL_ACTIONS;
-  payload: any | null;
   prev?: Pages | null;
 }
+
+// const body = document.querySelector("body") as HTMLElement;
+
+// export const showModal = (prev: Pages | null = null) => (dispatch: ({type}:IModal) => void) => {
+//   dispatch({type: MODAL_OPEN, prev});
+//   body.style.overflow = "hidden";
+// };
+
+// export const closeModal = () => (dispatch: ({type}:IModal) => void) => {
+//   dispatch({type: MODAL_CLOSE});
+//   body.style.overflow = "auto";
+// };
 
 // export const hideModal = () => (dispatch: ({type}:IModal) => void) => {
 //   dispatch({type: MODAL_CLOSE, payload: null});

@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   BurgerIcon,
   ListIcon,
@@ -34,7 +34,8 @@ const NavItem = (props: NavItemProps) => {
 
 const AppHeader = () => {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
+  
   const handleClick = (page: Pages) => {
     navigate(page);
   };
@@ -43,14 +44,14 @@ const AppHeader = () => {
     <header className={`${styles.header} py-4`}>
       <nav className={`${styles.nav} container`}>
         <ul className={`${styles.menuList}`}>
-          <NavItem text='Конструктор' onClick={() => handleClick(Pages.main)} active={true}>
-              <BurgerIcon type='primary' />
+          <NavItem text='Конструктор' onClick={() => handleClick(Pages.main)} active={Pages.main === pathname}>
+            <BurgerIcon type={Pages.main === pathname ? 'primary' : 'secondary'} />
           </NavItem>
-          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.order)}>
-            <ListIcon type='secondary' />
+          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.order)} active={Pages.order === pathname}>
+            <ListIcon type={Pages.order === pathname ? 'primary' : 'secondary'} />
           </NavItem>
-          <NavItem text='Личный кабинет' onClick={() => handleClick(Pages.profile)} className={cn(styles.profile)}>
-            <ProfileIcon type='secondary' />
+          <NavItem text='Личный кабинет' onClick={() => handleClick(Pages.profile)} active={Pages.profile === pathname} className={cn(styles.profile)}>
+            <ProfileIcon type={Pages.profile === pathname ? 'primary' : 'secondary'} />
           </NavItem>
         </ul>
         <Link to={Pages.main} className={styles.logo}>

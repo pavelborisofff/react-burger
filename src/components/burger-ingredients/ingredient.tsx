@@ -23,17 +23,6 @@ const Ingredient = (props: Data) => {
   let location = useLocation();
   const { bun, usedCount } = useSelector((store: RootState) => store.recipe);
 
-  const handleIngredient = () => {  
-    dispatch({
-      type: MODAL_OPEN,
-      payload: {
-        heading: 'Детали ингридиента',
-        content: <IngredientDetails {...props} />,
-      },
-      prev: Pages.main,
-    });
-  };
-
   const [{ isDrag }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...props },
@@ -43,10 +32,10 @@ const Ingredient = (props: Data) => {
   });
 
   return (
-    <li className={`${styles.ingredientsItem} ${isDrag ? styles.isDrag : ''}`} onClick={handleIngredient} ref={bun?._id === props._id ? null : dragRef}>
+    <li className={`${styles.ingredientsItem} ${isDrag ? styles.isDrag : ''}`} ref={bun?._id === props._id ? null : dragRef}>
       <Link 
         to={{ pathname: `/ingredients/${props._id}` }}
-        state={{ background: location }}
+        state={{ background: location, id: props._id }}
       >
         {"" + props.type === "bun" && bun?._id === props._id && (
           <>

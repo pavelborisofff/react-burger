@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import useIngredients from '../../hooks/api';
 import Header from "../header/header";
@@ -11,7 +11,6 @@ import { Modal } from '../modal/modal';
 
 import "./app.module.scss";
 
-import { RootState } from '../../services';
 import { Pages } from '../../utils/constants';
 import Login from '../../pages/login';
 import Register from '../../pages/register';
@@ -25,17 +24,15 @@ import { getUser } from '../../services/actions/authActions';
 
 
 function App() {
-  const { isOpen } = useSelector((store: RootState) => store.modal); 
-  const { isAuth } = useSelector((store: RootState) => store.auth); 
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  console.log('app isAuth', isAuth);
-    
   // autologin
   useEffect(() => {
     dispatch(getUser() as any);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   useIngredients();
@@ -51,11 +48,12 @@ function App() {
         <Route path={Pages.forgotPassword} element={<ProtectedRoute forAnonymous={true}><ForgotPassword /></ProtectedRoute>} />
         <Route path={Pages.resetPassword} element={<ProtectedRoute forAnonymous={true}><ResetPassword /></ProtectedRoute>} />
         <Route path={Pages.profile + '/*'} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
-        <Route path={Pages.ingredients + '/*'} element={<Ingredients />} />
-        {background && <Route path={Pages.ingredients + '/*'} element={<Modal />} />}
+        <Route path={Pages.ingredients} element={<Ingredients />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
-      {isOpen && <Modal />}
+      {background && 
+          <Modal title='Детали ингредиента' onClose={() => navigate(-1)}><Ingredients /></Modal>
+      }
     </>
   );
 }

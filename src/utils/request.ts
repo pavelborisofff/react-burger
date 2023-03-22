@@ -24,8 +24,6 @@ async function request({endpoint, baseUrl = API_URL, method = 'GET', data, heade
     .catch(error => {
       
       const msg:string = error.response.data.message || error.message || error.toString();
-      console.log('msg', msg);
-      
       throw new Error( msg );
     }
   );

@@ -6,7 +6,7 @@ import { Pages } from '../../utils/constants';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services';
-import { ILoginForm, login } from '../../services/actions/authActions';
+import { login } from '../../services/actions/authActions';
 import { Link, useNavigate,  } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 
@@ -29,8 +29,6 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuth) {
-      console.log('login isAuth', isAuth);
-      
       navigate(-1);
     }
   }, [isAuth, navigate])
