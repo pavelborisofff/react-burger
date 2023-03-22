@@ -6,8 +6,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 
 import styles from "./modal.module.scss";
-import { useDispatch } from 'react-redux';
-import { MODAL_CLOSE, MODAL_OPEN } from '../../services/actions/modalActions';
 
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
@@ -20,18 +18,13 @@ export type ModalProps = {
 };
 
 const Modal = ({title, onClose, children}:ModalProps) => {
-  const dispatch = useDispatch()
-
   const onCloseCommon = () => {
     onClose && onClose();
     body.classList.remove("modal-open")
-    dispatch({ type: MODAL_CLOSE });
   };
 
   useEffect(() => {
     body.classList.add("modal-open")
-    
-    dispatch({ type: MODAL_OPEN });
     
     const handleEsc = (e: KeyboardEvent) => e.key === "Escape" ? onCloseCommon() : null;
     document.addEventListener("keydown", handleEsc);

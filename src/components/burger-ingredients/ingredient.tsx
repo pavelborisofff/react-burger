@@ -4,22 +4,17 @@ import {
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-
-import { IngredientDetails } from "../ingredients-details/ingredients";
+import { Link, useLocation } from "react-router-dom";
 
 import styles from "./burger-ingredients.module.scss";
 
-import { useDispatch, useSelector } from "react-redux";
-import { MODAL_OPEN } from '../../services/actions/modalActions';
+import { useSelector } from "react-redux";
 
 import { Data } from "../../types/types";
 import { RootState } from '../../services';
-import { Pages } from '../../utils/constants';
 
 
 const Ingredient = (props: Data) => {
-  const dispatch = useDispatch();
   let location = useLocation();
   const { bun, usedCount } = useSelector((store: RootState) => store.recipe);
 

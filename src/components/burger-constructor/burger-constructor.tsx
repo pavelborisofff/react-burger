@@ -14,7 +14,6 @@ import { Data } from '../../types/types';
 import { BUN_ADD, BUN_REMOVE, INGREDIENT_ADD } from '../../services/actions/recipeActions';
 import { RecipeItem } from './recipe-item';
 
-import { MODAL_OPEN } from '../../services/actions/modalActions';
 import { OrderDetails } from '../order-details/order-details';
 import { ORDER_RESET, orderPost } from '../../services/actions/orderActions';
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +41,6 @@ const BurgerConstructor = () => {
       dispatch({ type: ORDER_RESET });
       dispatch(orderPost(body as any) as any); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
       setShowModal(true);
-      dispatch({ type: MODAL_OPEN });
     }
   }
 
