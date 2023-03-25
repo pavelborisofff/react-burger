@@ -6,26 +6,27 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 
 import styles from "./modal.module.scss";
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
-import { MODAL_CLOSE } from '../../services/actions/modalActions';
 
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
 const body = document.querySelector("body") as HTMLElement;
 
+export type ModalProps = {
+  title: string;
+  onClose?: () => void;
+  children?: React.ReactNode;
+};
 
-const Modal = () => {
-  const dispatch = useDispatch()
-  const { payload } = useSelector((store: RootState) => store.modal);
-
-  
-  const onClose = () => {
-    dispatch({ type: MODAL_CLOSE })
+const Modal = ({title, onClose, children}:ModalProps) => {
+  const onCloseCommon = () => {
+    onClose && onClose();
+    body.classList.remove("modal-open")
   };
 
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => e.key === "Escape" ? onClose() : null;
+    body.classList.add("modal-open")
+    
+    const handleEsc = (e: KeyboardEvent) => e.key === "Escape" ? onCloseCommon() : null;
     document.addEventListener("keydown", handleEsc);
 
     return () => {
@@ -34,25 +35,19 @@ const Modal = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // TODO: if add onClose to the dependencies it causes an infinite loop
 
-  useEffect(() => {
-    payload ? body.classList.add("modal-open") : body.classList.remove("modal-open");
-  }, [payload]);
-
   return createPortal(
     <>
-      {!!payload && 
-      <ModalOverlay onClose={onClose}>
+      <ModalOverlay onClose={onCloseCommon}>
         <div className={`${styles.body} px-10 py-15`}>
           <div className={`${styles.header}`}>
             <h3 className={`${styles.title} text text_type_main-medium`}>
-              {payload.heading}
+              {title}
             </h3>
-            <CloseIcon type="primary" onClick={onClose} />
+            <CloseIcon type="primary" onClick={onCloseCommon} />
           </div>
-          {payload.content}
+          {children}
         </div>
       </ModalOverlay>
-      }
     </>
   , modalRoot)
 };

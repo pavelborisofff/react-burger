@@ -20,7 +20,7 @@ const initialOrder:IOrderState = {
   isError: false
 };
 
-export const orderReducer = (state = initialOrder, action: any) => {
+const orderReducer = (state = initialOrder, action: any) => {
   switch (action.type) {
     case ORDER_REQUEST:
       return {
@@ -55,3 +55,5 @@ export const orderReducer = (state = initialOrder, action: any) => {
   }
 };
   
+
+export default orderReducer;

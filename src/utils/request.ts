@@ -4,24 +4,27 @@ import { API, API_URL } from './constants';
 
 
 interface IRequest {
-  readonly endpoint: keyof typeof API;
-  readonly baseUrl?: string;
-  readonly method?: string;
-  readonly data?: {};
+  endpoint: API;
+  baseUrl?: string;
+  method?: string;
+  data?: {};
+  headers?: {};
 }
 
 
-async function request({endpoint, baseUrl = API_URL, method = 'GET', data}:IRequest) {
+async function request({endpoint, baseUrl = API_URL, method = 'GET', data, headers}:IRequest) {
   const requestOptions = {
     method: method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: headers || { 'Content-Type': 'application/json' },
     data: data,
   };
   
   return await axios(baseUrl + endpoint, requestOptions)
     .then(response => response.data)
     .catch(error => {
-      throw new Error(`Request failed: ${error}, Status: ${error.response.status}`);
+      
+      const msg:string = error.response.data.message || error.message || error.toString();
+      throw new Error( msg );
     }
   );
 };

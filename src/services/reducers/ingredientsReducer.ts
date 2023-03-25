@@ -1,3 +1,4 @@
+import { Data } from '../../types/types';
 import {
   INGREDIENTS_REQUEST,
   INGREDIENTS_REQUEST_SUCCESS,
@@ -9,6 +10,7 @@ import {
 
 interface IInitialState  {
   ingredients: IPreparedData | null;
+  ingredientsRaw?: Data[],
   isLoading: boolean;
   isError: boolean;
 }
@@ -33,6 +35,7 @@ const ingredientsReducer = (state = initialState, action: any) => {
       return {
         ...state,
         ingredients: action.ingredients,
+        ingredientsRaw: action.ingredientsRaw,
         isLoading: false,
         isError: false,
       };
