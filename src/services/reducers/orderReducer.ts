@@ -2,7 +2,8 @@ import {
   ORDER_REQUEST,
   ORDER_REQUEST_SUCCESS,
   ORDER_REQUEST_ERROR,
-  ORDER_RESET
+  ORDER_RESET,
+  OrderActionTypes
 } from '../actions/orderActions';
 
 
@@ -20,7 +21,8 @@ const initialOrder:IOrderState = {
   isError: false
 };
 
-const orderReducer = (state = initialOrder, action: any) => {
+
+const orderReducer = (state = initialOrder, action: OrderActionTypes):IOrderState => {
   switch (action.type) {
     case ORDER_REQUEST:
       return {

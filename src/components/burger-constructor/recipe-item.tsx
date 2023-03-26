@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { INGREDIENT_REMOVE, INGREDIENTS_SET } from '../../services/actions/recipeActions';
 
 import styles from "./burger-constructor.module.scss";
@@ -9,9 +9,10 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { RootState } from '../../services';
 
 
-const sortRecipe = (dragIndex, hoverIndex, arr) => {
+const sortRecipe = (dragIndex: number, hoverIndex: number, arr: Array<any>) => {
   const item = arr[dragIndex];
   const sortArr = [...arr]
   
@@ -21,19 +22,30 @@ const sortRecipe = (dragIndex, hoverIndex, arr) => {
   return sortArr
 };
 
+interface IItem {
+  name: string;
+  price: number;
+  image: string; 
+}
 
-export const RecipeItem = ({ item, index }) => {
+interface RecipeItemProps {
+  item: IItem,
+  index: number,
+}
+
+export const RecipeItem = ({ item, index }:RecipeItemProps) => {
   const dispatch = useDispatch();
-  const { usedIngredients } = useSelector((store) => store.recipe);
+  const { usedIngredients } = useSelector((store: RootState) => store.recipe);
 
-  const handleDelete = (item) => dispatch({ type: INGREDIENT_REMOVE, payload: item});
+  const handleDelete = (item:IItem) => dispatch({ type: INGREDIENT_REMOVE, payload: item});
 
-  const itemRef = useRef();
+  const itemRef = useRef<HTMLDivElement>(null);
 
   const [, dropItem] = useDrop({
       accept: ["inner"],
       collect(monitor) {},
-      hover(item, monitor) {
+      // TODO: тут не справился с типизацией, не понимаю как правильно указать типы
+      hover(item: any, monitor: DropTargetMonitor) {
           if (!itemRef.current) return;
 
           const dragIndex = item.index;
@@ -44,7 +56,7 @@ export const RecipeItem = ({ item, index }) => {
 
           const hoverBoundingRect = itemRef.current?.getBoundingClientRect();
           const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-          const clientOffset = monitor.getClientOffset();
+          const clientOffset = monitor.getClientOffset() || { x: 0, y: 0 };
           const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
           if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;

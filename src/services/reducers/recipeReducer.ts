@@ -1,7 +1,7 @@
 
 
 import { Data } from '../../types/types';
-import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET, INGREDIENTS_RESET } from '../actions/recipeActions';
+import { INGREDIENT_ADD, INGREDIENT_REMOVE, BUN_ADD, BUN_REMOVE, INGREDIENTS_SET, INGREDIENTS_RESET, RecipeActionTypes } from '../actions/recipeActions';
 
 
 interface IRecipeState {
@@ -20,7 +20,7 @@ const initialRecipe:IRecipeState = {
   usedCount: {},
 };
 
-const recipeReducer = (state = initialRecipe, action: any):IRecipeState => {
+const recipeReducer = (state = initialRecipe, action: RecipeActionTypes):IRecipeState => {
   switch (action.type) {
     case INGREDIENT_ADD:
       return {

@@ -4,6 +4,7 @@ import {
   INGREDIENTS_REQUEST_SUCCESS,
   INGREDIENTS_REQUEST_ERROR,
   IPreparedData,
+  IngredientsActionsType,
 } from '../actions/ingredientsActions';
 
 
@@ -23,7 +24,7 @@ export const initialState:IInitialState = {
 };
 
 
-const ingredientsReducer = (state = initialState, action: any) => {
+const ingredientsReducer = (state = initialState, action: IngredientsActionsType):IInitialState => {
   switch (action.type) {
     case INGREDIENTS_REQUEST:
       return {
