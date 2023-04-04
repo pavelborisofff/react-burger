@@ -44,10 +44,8 @@ export interface ILoginForm {
   password: string
 }
 
-export interface IRegisterForm {
-  name: string
-  email: string,
-  password: string,
+export interface IRegisterForm extends ILoginForm {
+  name: string,
 }
 
 interface ILoginResponse {
@@ -60,6 +58,41 @@ interface ILoginResponse {
   },
   message?: string,
 }
+
+export type UserType = {
+  email: string | null,
+  name: string | null,
+  password?: string | null,
+};
+
+// TODO: так пойдёт или это совсем кривое решение?
+export type AuthActionTypes = 
+  | { type: typeof LOGIN_REQUEST }
+  | { type: typeof LOGIN_SUCCESS; user: UserType; token: string; refreshToken: string }
+  | { type: typeof LOGIN_ERROR; message?: string }
+  | { type: typeof REGISTER_REQUEST }
+  | { type: typeof REGISTER_SUCCESS; user: UserType; token: string; refreshToken: string }
+  | { type: typeof REGISTER_ERROR; message?: string }
+  | { type: typeof LOGOUT_REQUEST }
+  | { type: typeof LOGOUT_SUCCESS; message?: string }
+  | { type: typeof LOGOUT_ERROR; message?: string }
+  | { type: typeof TOKEN_REQUEST }
+  | { type: typeof TOKEN_SUCCESS; token: string; refreshToken: string }
+  | { type: typeof TOKEN_ERROR; message?: string }
+  | { type: typeof UPDATE_REQUEST }
+  | { type: typeof UPDATE_SUCCESS; user: UserType }
+  | { type: typeof UPDATE_ERROR; message?: string }
+  | { type: typeof USER_REQUEST }
+  | { type: typeof USER_SUCCESS; user: UserType }
+  | { type: typeof USER_ERROR; message?: string }
+  | { type: typeof FORGOT_REQUEST }
+  | { type: typeof FORGOT_SUCCESS; message?: string }
+  | { type: typeof FORGOT_ERROR; message?: string }
+  | { type: typeof RESET_REQUEST }
+  | { type: typeof RESET_SUCCESS; message?: string }
+  | { type: typeof RESET_ERROR; message?: string }
+  | { type: typeof CLEAR_ERROR; message?: string };
+
 
 
 export const login = ({email, password}:ILoginForm) => async (dispatch: AppDispatch) => {
@@ -117,9 +150,9 @@ interface IResponseLogout {
 export const logout = () => async (dispatch: AppDispatch) => {
   dispatch({ type: LOGOUT_REQUEST });
   const refreshToken = getCookie('refreshToken');
-  const accessToken = getCookie('accessToken');
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const response:IResponseLogout = await request({ endpoint: API.logout, method: 'POST', data: { token: refreshToken } });
 
     deleteCookie('refreshToken');
@@ -203,7 +236,7 @@ export const getUser = () => async (dispatch: AppDispatch) => {
     if (error.message && (error.message === 'jwt expired' || error.message === 'jwt malformed')) {    
         
       try {
-        dispatch(tokenRefresh());
+        dispatch(tokenRefresh() as any);
         return null;
       }
       catch (error: any) {
@@ -226,6 +259,7 @@ export const resetPassword = ({ password, token  }:IResetForm) => async (dispatc
   dispatch({ type: RESET_REQUEST });
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const response = await request({ endpoint: API.reset, method: 'POST', data: { password, token } });
 
     dispatch({ type: FORGOT_SUCCESS });

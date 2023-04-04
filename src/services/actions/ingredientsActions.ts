@@ -8,11 +8,10 @@ export const INGREDIENTS_REQUEST_SUCCESS = 'INGREDIENTS_REQUEST_SUCCESS';
 export const INGREDIENTS_REQUEST_ERROR = 'INGREDIENTS_REQUEST_ERROR';
 
 
-// type typeName = keyof typeof Tabs;
-
-// type PreparedData = {
-//   [key in typeName]?: Data[];
-// };
+export type IngredientsActionsType = 
+  | {type: typeof INGREDIENTS_REQUEST}
+  | {type: typeof INGREDIENTS_REQUEST_SUCCESS, ingredients: IPreparedData, ingredientsRaw: Data[]}
+  | {type: typeof INGREDIENTS_REQUEST_ERROR};
 
 export interface IPreparedData extends Partial<Record<Tabs, Data[]>> {}
 
@@ -22,11 +21,7 @@ interface IIngredientsResponse {
   data: Data[];
 }
 
-/**
- * 
- * @param arr IIngredientsResponse like {success: true, data: [{_id: ..., name: ..., type: ..., ...}, ...]}
- * @returns IPreparedData like {bun: [{_id: ..., name: ..., type: ..., ...}, ...], ...} where key in Tabs enum keys (keyof typeof Tabs)
- */
+
 function sortByTypes (arr: IIngredientsResponse):IPreparedData {
   const result = {} as IPreparedData;
 

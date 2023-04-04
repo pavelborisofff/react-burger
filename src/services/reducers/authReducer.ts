@@ -27,29 +27,29 @@ import {
   FORGOT_REQUEST,
   FORGOT_SUCCESS,
   FORGOT_ERROR,
+  AuthActionTypes,
 } from '../actions/authActions';
 
 
-interface IAuthState {
+export interface IAuthState {
   user: {
     email: string | null,
     name: string | null,
     password?: string | null,
   };
-  token: string | null,
-  refreshToken: string | null,
+  token: string,
+  refreshToken: string,
   isAuth: boolean,
   isLoading: boolean,
   isError: boolean,
   isForgot: boolean,
-  message: string,
+  message?: string,
 }
 
-
 const initialState:IAuthState = {
-  user: { email: null, name: null, password: null},
-  token: null,
-  refreshToken: null,
+  user: { email: '', name: '', password: ''},
+  token: '',
+  refreshToken: '',
   isAuth: false,
   isLoading: false,
   isError: false,
@@ -58,7 +58,7 @@ const initialState:IAuthState = {
 };
 
 
-const authReducer = (state = initialState, action: any) => {
+const authReducer = (state = initialState, action: AuthActionTypes):IAuthState => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -110,7 +110,7 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         isLoading: false,
         isError: true,
-        message: action.error.message,
+        message: action.message,
       };
     case LOGOUT_REQUEST:
       return {

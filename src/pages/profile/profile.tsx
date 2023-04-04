@@ -4,23 +4,22 @@ import styles from  './profile.module.scss';
 
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { Pages } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ERROR, logout, updateUser } from '../../services/actions/authActions';
 import { RootState } from '../../services';
-import { useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
-  const defaultUserData = {email: user.email, name: user.name, password: ''};
+  const defaultUserData = {email: user.email || '', name: user.name || '', password: ''};
   const [userData, setUserData] = useState(defaultUserData);
 
-  const enableToSend = useMemo(() => {
+  const enableToSend = useMemo<boolean>(() => {
     return userData.name !== user.name || userData.email !== user.email || !!userData.password
-  }, [userData]);
+  }, [userData, user]);
 
-  const onChange = (e:any) => {
+  const onChange = (e:ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();   
     setUserData({
       ...userData,
@@ -65,8 +64,6 @@ const Profile = () => {
           value={userData.name}
           name={'name'}
           error={false}
-          // ref={inputRef}
-          // onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
           extraClass={cn('pb-6')}

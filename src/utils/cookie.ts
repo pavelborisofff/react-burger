@@ -11,7 +11,7 @@ function getCookie(name: string) {
 
 interface ICookieProps {
   expires: number | Date;
-  [key: string]: any;
+  [key: string]: any; // TODO: тут надо типизировать?
 }
 
 function setCookie(name: string, value: string | null, props?: ICookieProps) {

@@ -13,6 +13,13 @@ export type Payload = {
   ingredients: string[];
 };
 
+export type OrderActionTypes =
+  | { type: typeof ORDER_REQUEST }
+  | { type: typeof ORDER_REQUEST_SUCCESS; orderNumber: number; name: string }
+  | { type: typeof ORDER_REQUEST_ERROR }
+  | { type: typeof ORDER_RESET };
+
+
 export const orderPost = (data?: Payload) => async (dispatch: AppDispatch) => {
 
   dispatch({ type: ORDER_REQUEST });
