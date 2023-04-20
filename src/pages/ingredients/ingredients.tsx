@@ -25,7 +25,7 @@ const Ingredients = () => {
     }
   }, [dispatch, ingredientsRaw]);
 
-  return (
+return (
     <IngredientDetails {...data} />
   )
 };

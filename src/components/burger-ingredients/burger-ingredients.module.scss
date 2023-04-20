@@ -1,5 +1,12 @@
 @import "../../variables.scss";
 
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: calc(#{$offset-base-size} * 4);
+    /* height: calc(912px - 88px - 100px - 56px); */
+}
+
 .tabsList {
   overflow-y: auto;
   height: calc(912px - 188px - 56px);

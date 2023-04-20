@@ -47,8 +47,8 @@ const AppHeader = () => {
           <NavItem text='Конструктор' onClick={() => handleClick(Pages.main)} active={Pages.main === pathname}>
             <BurgerIcon type={Pages.main === pathname ? 'primary' : 'secondary'} />
           </NavItem>
-          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.order)} active={Pages.order === pathname}>
-            <ListIcon type={Pages.order === pathname ? 'primary' : 'secondary'} />
+          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.feed)} active={Pages.feed === pathname}>
+            <ListIcon type={Pages.feed === pathname ? 'primary' : 'secondary'} />
           </NavItem>
           <NavItem text='Личный кабинет' onClick={() => handleClick(Pages.profile)} active={Pages.profile === pathname} className={cn(styles.profile)}>
             <ProfileIcon type={Pages.profile === pathname ? 'primary' : 'secondary'} />

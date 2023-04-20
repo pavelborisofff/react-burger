@@ -28,11 +28,14 @@ enum Pages {
   main = '/',
   login = '/login',
   register = '/register',
-  order = '/order',
   forgotPassword = '/forgot-password',
   resetPassword = '/reset-password',
   profile = '/profile',
+  orders = '/profile/orders',
+  ordersId = '/profile/orders/:id',
   ingredients = '/ingredients/:id',
+  feed = '/feed',
+  feedId = '/feed/:id',
   page404 = '/404',
 }
 

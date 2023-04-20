@@ -1,4 +1,4 @@
-import { AppDispatch } from '..';
+import { AppDispatch, AppThunk } from '..';
 import { API } from '../../utils/constants';
 import request from '../../utils/request';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie';
@@ -95,7 +95,7 @@ export type AuthActionTypes =
 
 
 
-export const login = ({email, password}:ILoginForm) => async (dispatch: AppDispatch) => {
+export const login: AppThunk = ({email, password}:ILoginForm) => async (dispatch: AppDispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   try {
@@ -119,7 +119,7 @@ export const login = ({email, password}:ILoginForm) => async (dispatch: AppDispa
   }
 }
 
-export const register = ({ email, password, name }:IRegisterForm) => async (dispatch: AppDispatch) => {
+export const register: AppThunk = ({ email, password, name }:IRegisterForm) => async (dispatch: AppDispatch) => {
   dispatch({ type: REGISTER_REQUEST });
 
   try {
@@ -147,7 +147,7 @@ interface IResponseLogout {
 }
 
 
-export const logout = () => async (dispatch: AppDispatch) => {
+export const logout: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch({ type: LOGOUT_REQUEST });
   const refreshToken = getCookie('refreshToken');
 
@@ -172,7 +172,7 @@ interface ITokenResponse {
 }
 
 
-export const tokenRefresh = () => async (dispatch: AppDispatch) => {
+export const tokenRefresh: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch({ type: TOKEN_REQUEST });
   const refreshToken = getCookie('refreshToken');
 
@@ -189,7 +189,7 @@ export const tokenRefresh = () => async (dispatch: AppDispatch) => {
 }
 
 
-export const updateUser = ({ email, password, name }:IRegisterForm) => async (dispatch: AppDispatch) => {
+export const updateUser: AppThunk = ({ email, password, name }:IRegisterForm) => async (dispatch: AppDispatch) => {
   dispatch({ type: UPDATE_REQUEST });
   const accessToken = getCookie('accessToken');
   const headers = { 
@@ -216,7 +216,7 @@ export const updateUser = ({ email, password, name }:IRegisterForm) => async (di
 };
 
 
-export const getUser = () => async (dispatch: AppDispatch) => {
+export const getUser: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch({ type: USER_REQUEST });
   const accessToken = getCookie('accessToken');
   const headers = { 
@@ -255,7 +255,7 @@ export interface IResetForm {
   token: string,
 }
 
-export const resetPassword = ({ password, token  }:IResetForm) => async (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = ({ password, token  }:IResetForm) => async (dispatch: AppDispatch) => {
   dispatch({ type: RESET_REQUEST });
 
   try {
@@ -268,7 +268,7 @@ export const resetPassword = ({ password, token  }:IResetForm) => async (dispatc
   }
 }
 
-export const forgotPassword = (email: string) => async (dispatch: AppDispatch) => {
+export const forgotPassword: AppThunk = (email: string) => async (dispatch: AppDispatch) => {
   dispatch({ type: FORGOT_REQUEST });
 
   try {

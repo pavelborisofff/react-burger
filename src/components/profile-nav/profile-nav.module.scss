@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+.profileList {
+    margin-top: calc(#{$offset-base-size} * 30);
+}
+
+.profileItem {
+    color: $text-dark-grey;
+    cursor: pointer;
+
+    &:hover,
+    &.active {
+        color: $text-primary-light;
+    }
+}
+
+.profileList {
+    width: 340px;
+}

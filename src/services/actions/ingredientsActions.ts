@@ -1,4 +1,4 @@
-import { AppDispatch } from '..';
+import { AppDispatch, AppThunk } from '..';
 import { Data } from '../../types/types';
 import { API, Tabs } from '../../utils/constants';
 import request from '../../utils/request';
@@ -36,7 +36,7 @@ function sortByTypes (arr: IIngredientsResponse):IPreparedData {
 }
 
 
-export const getIngredients = () => async (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch({type: INGREDIENTS_REQUEST});
 
   try {

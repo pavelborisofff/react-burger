@@ -1,0 +1,14 @@
+@import '../../variables.scss';
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: calc(#{$offset-base-size} * 4);
+    height: calc(912px - 88px - calc(#{$offset-base-size} * 10));
+    margin-top: calc(#{$offset-base-size} * 10);
+    padding: calc(#{$offset-base-size} * 2);
+}
+
+.scrollableSection {
+    overflow-y: auto;
+}

@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.form {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: calc(#{$offset-base-size} * 30);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+
+    & > * + * {
+        margin-left: calc(#{$offset-base-size} * 6);
+    }
+}

@@ -19,8 +19,10 @@ import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import Ingredients from '../../pages/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import Order from '../../pages/order';
+import Order from '../../pages/orders';
 import { getUser } from '../../services/actions/authActions';
+import Feed from '../../pages/feed';
+import Orders from '../../pages/orders';
 
 
 function App() {
@@ -42,12 +44,15 @@ function App() {
       <Header />
       <Routes location={background || location}>
         <Route path={Pages.main} element={<Main />} />
-        <Route path={Pages.order} element={<Order />} />
+        <Route path={Pages.feedId} element={<Orders />} />
+        <Route path={Pages.ordersId} element={<Orders />} />
+        <Route path={Pages.feed} element={<Feed />} />
         <Route path={Pages.login} element={<ProtectedRoute forAnonymous={true}><Login /></ProtectedRoute>} />
         <Route path={Pages.register} element={<ProtectedRoute forAnonymous={true}><Register /></ProtectedRoute>} />
         <Route path={Pages.forgotPassword} element={<ProtectedRoute forAnonymous={true}><ForgotPassword /></ProtectedRoute>} />
         <Route path={Pages.resetPassword} element={<ProtectedRoute forAnonymous={true}><ResetPassword /></ProtectedRoute>} />
-        <Route path={Pages.profile + '/*'} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
+        <Route path={Pages.profile} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
+        <Route path={Pages.orders} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
         <Route path={Pages.ingredients} element={<Ingredients />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>

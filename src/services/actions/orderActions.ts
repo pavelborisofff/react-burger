@@ -1,4 +1,4 @@
-import { AppDispatch } from '..';
+import { AppDispatch, AppThunk } from '..';
 import { API } from '../../utils/constants';
 import request from '../../utils/request';
 import { INGREDIENTS_RESET } from './recipeActions';
@@ -20,7 +20,7 @@ export type OrderActionTypes =
   | { type: typeof ORDER_RESET };
 
 
-export const orderPost = (data?: Payload) => async (dispatch: AppDispatch) => {
+export const orderPost: AppThunk = (data?: Payload) => async (dispatch: AppDispatch) => {
 
   dispatch({ type: ORDER_REQUEST });
 
