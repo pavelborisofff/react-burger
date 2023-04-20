@@ -1,14 +1,48 @@
 @import '../../variables.scss';
 
 .section {
+    width: 640px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: calc(#{$offset-base-size} * 4);
     height: calc(912px - 88px - calc(#{$offset-base-size} * 10));
     margin-top: calc(#{$offset-base-size} * 10);
     padding: calc(#{$offset-base-size} * 2);
 }
 
+.number {
+    text-align: center;
+}
+
 .scrollableSection {
     overflow-y: auto;
+}
+
+.ingredient {
+    align-items: center;
+
+    & > *:last-child {
+        margin-left: auto;
+    }
+}
+
+.border {
+    background: linear-gradient(90deg, #801AB2 0%, #4C4CFF 100%);
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    // padding: 2px;
+}
+
+.picture {
+    & img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 2px;
+        background-color: $color-modal-bg;
+        font-size: 0;
+    }
 }

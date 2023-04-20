@@ -66,7 +66,7 @@ const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
           if (i + 1 > maxImgCount) return null;
 
           return (
-            <div key={i} className={cn(styles.border, styles.overflow)}>
+            <div key={i} className={cn(styles.border)}>
               <picture className={styles.picture}>
                 <source srcSet={srcSet} />
                 <img src={src} alt={alt} className={cn(styles.overflow)}/>
