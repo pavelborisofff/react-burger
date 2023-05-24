@@ -20,7 +20,7 @@ export type OrderActionTypes =
   | { type: typeof ORDER_RESET };
 
 
-export const orderPost: AppThunk = (data?: Payload) => async (dispatch: AppDispatch) => {
+export const orderPost = (data?: Payload) => async (dispatch: AppDispatch) => {
 
   dispatch({ type: ORDER_REQUEST });
 

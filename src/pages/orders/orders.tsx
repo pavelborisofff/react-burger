@@ -19,7 +19,7 @@ export const Orders: React.FC<IOrdersProps> = ({ props }) => {
   const multiplier = 2;
   const totalPrice = 1234;
   const status = 'Выполнен';
-
+  const orders = Array(arrLength).fill(0);
 
   return (
     <div className={cn(styles.section)}>
@@ -36,7 +36,7 @@ export const Orders: React.FC<IOrdersProps> = ({ props }) => {
       <p className={cn('text text_type_main-medium pt-15')}>Состав:</p>
       <div className={cn(styles.scrollableSection, 'section', 'custom-scroll')}>
         {/* INGREDIENTS LIST */}
-        {Array(10).fill(0).map((_, i) => (
+        {orders.map((_, i) => (
           <div className={cn(styles.ingredient, 'flex-wrapper pr-6 pt-4')}>
             {/* IMG */}
             <div key={i} className={cn(styles.border)}>

@@ -11,6 +11,7 @@ enum OrderStatus {
 }
 
 const API_URL: string = 'https://norma.nomoreparties.space/api/';
+const WS_URL: string = 'wss://norma.nomoreparties.space/orders/';
 
 enum API {
   ingredients = 'ingredients',
@@ -22,6 +23,10 @@ enum API {
   user = 'auth/user',
   forgot = 'password-reset',
   reset = 'password-reset/reset',
+}
+
+enum WS {
+  orders = 'orders/all',
 }
 
 enum Pages {

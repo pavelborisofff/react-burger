@@ -23,6 +23,7 @@ import Order from '../../pages/orders';
 import { getUser } from '../../services/actions/authActions';
 import Feed from '../../pages/feed';
 import Orders from '../../pages/orders';
+import { OrderCard } from '../order-cards/order-cards';
 
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
     dispatch(getUser() as any);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  
   
   useIngredients();
   
@@ -53,11 +56,37 @@ function App() {
         <Route path={Pages.resetPassword} element={<ProtectedRoute forAnonymous={true}><ResetPassword /></ProtectedRoute>} />
         <Route path={Pages.profile} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
         <Route path={Pages.orders} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
+        <Route path={Pages.ordersId} element={<ProtectedRoute><OrderCard /></ProtectedRoute> } />
         <Route path={Pages.ingredients} element={<Ingredients />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
       {background && 
-          <Modal title='Детали ингредиента' onClose={() => navigate(-1)}><Ingredients /></Modal>
+        <Routes>
+          <Route 
+            path={Pages.ingredients} 
+            element={
+              <Modal title='Детали ингредиента' onClose={() => navigate(-1)}>
+                <Ingredients />
+              </Modal>
+            } 
+          />
+          <Route 
+            path={Pages.ordersId} 
+            element={
+              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                <OrderCard />
+              </Modal>
+            } 
+          />
+          <Route 
+            path={Pages.feedId} 
+            element={
+              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                <OrderCard />
+              </Modal>
+            } 
+          />
+        </Routes>
       }
     </>
   );

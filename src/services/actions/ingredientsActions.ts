@@ -36,7 +36,7 @@ function sortByTypes (arr: IIngredientsResponse):IPreparedData {
 }
 
 
-export const getIngredients: AppThunk = () => async (dispatch: AppDispatch) => {
+export const getIngredients = () => async (dispatch: AppDispatch) => {
   dispatch({type: INGREDIENTS_REQUEST});
 
   try {
