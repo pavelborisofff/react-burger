@@ -1,4 +1,4 @@
-import { AppDispatch, AppThunk } from '..';
+import { AppDispatch } from '..';
 import { API } from '../../utils/constants';
 import request from '../../utils/request';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie';

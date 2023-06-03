@@ -1,4 +1,4 @@
-import { AppDispatch, AppThunk } from '..';
+import { AppDispatch } from '..';
 import { Data } from '../../types/types';
 import { API, Tabs } from '../../utils/constants';
 import request from '../../utils/request';

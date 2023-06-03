@@ -2,8 +2,12 @@ import {
   ActionCreatorWithPayload,
   ActionCreatorWithoutPayload,
 } from '@reduxjs/toolkit';
-import { Middleware } from 'redux';
-import { RootState } from '../index';
+
+import { Middleware, MiddlewareAPI } from 'redux';
+import { AppDispatch, RootState } from '../index';
+import { TwsActions } from '../actions/wsActions';
+import { getCookie, setCookie } from '../../utils/cookie';
+import { tokenRefresh } from '../actions/authActions';
 
 
 export type TOrderType = {
@@ -18,81 +22,103 @@ export type TOrderType = {
 
 
 export type TWsActionTypes = {
-  wsStart: ActionCreatorWithPayload<string>;
-  wsStop: ActionCreatorWithoutPayload;
-  wsClosed: ActionCreatorWithoutPayload;
-  wsError: ActionCreatorWithPayload<string>;
-  wsSuccess: ActionCreatorWithoutPayload;
+  connect: ActionCreatorWithPayload<{ url: string, token?: boolean }>;
+  disconnect: ActionCreatorWithoutPayload;
+  wsConnecting: ActionCreatorWithoutPayload;
+  wsOpen: ActionCreatorWithoutPayload;
+  wsClose: ActionCreatorWithoutPayload;
+  wsMessage: ActionCreatorWithPayload<TWSResponse>;
+  wsError: ActionCreatorWithPayload<string>; 
+}
 
-  wsGetMessage: ActionCreatorWithPayload<TWSResponse>;
-  wsSendMessage?: ActionCreatorWithPayload<string>;
-};
 
 export type TWSResponse = {
   success: boolean;
   orders: Array<TOrderType>;
   total: number;
   totalToday: number;
-  name: string;
+  message: string;
 };
 
 
-
-export const createSocketMiddleware = 
-  (wsActions: TWsActionTypes): Middleware<{}, RootState> => {
-  return (store) => {
+export const createSocketMiddleware = (wsActions: TWsActionTypes): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
+    let url = '';
+    let token = '';
     let isConnected: boolean = false;
+    let reconnectTimer = 0;
 
-    return (next) => (action) => {
+    return (next) => (action: TwsActions) => {
       const { dispatch } = store;
-      const { payload } = action;
       const {
-        wsStart,
-        wsStop,
-        wsClosed,
+        connect,
+        disconnect,
+        wsConnecting,
+        wsOpen,
+        wsClose,
+        wsMessage,
         wsError,
-        wsSuccess,
-        wsGetMessage,
-        wsSendMessage,
       } = wsActions;
 
-      if (wsStart.match(action)) {
-        socket = new WebSocket(`${action.payload}`);
+      if (connect.match(action)) {
+        console.log('Websocket connecting')
+        url = action.payload.url;
+        token = action.payload.token ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')}` : "";
+        socket = new WebSocket(url + token);
         isConnected = true;
+        window.clearTimeout(reconnectTimer);
+        reconnectTimer = 0;
+        
+        dispatch(wsConnecting())
       }
 
       if (socket) {
         socket.onopen = (event) => {
-          dispatch(wsSuccess());
+          dispatch(wsOpen());
         };
 
-        socket.onerror = (event) => {
-          dispatch(wsError('error'));
+        socket.onerror = () => {
+          dispatch(wsError('Websocket error'));
         };
 
-        socket.onmessage = (event) => {
+        socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
           const parsedData: TWSResponse = JSON.parse(data);
-          dispatch(wsGetMessage(parsedData));
+
+          if (parsedData.message === 'Invalid or missing token') {
+            setCookie('accessToken', '', { expires: -1 });
+            dispatch(tokenRefresh());
+
+            return;
+          }
+
+          dispatch(wsMessage(parsedData));
         };
 
-        socket.onclose = (event) => {
-          dispatch(wsStop());
+        socket.onclose = (event: CloseEvent) => {
+          if (event.code !== 1000) {
+            dispatch(wsError(event.code.toString()));
+          }
+
+          if (isConnected) {
+            dispatch(wsConnecting());
+
+            reconnectTimer = window.setTimeout(() => {
+              dispatch(connect({ url, token: !!token }));
+            }, 5000);
+          }
         };
-
-        if (wsSendMessage?.match(action)) {
-          const message = { ...payload };
-          socket.send(JSON.stringify(message));
-        }
-
-        if (wsClosed.match(action)) {
-          socket.close();
-          socket = null;
-          isConnected = false;
-          dispatch(wsClosed())
-        }
       }
+
+      if (socket && disconnect.match(action)) {
+        window.clearTimeout(reconnectTimer);
+        isConnected = false;
+        reconnectTimer = 0;
+        dispatch(wsClose());
+        socket.close();
+      }
+
       next(action);
     };
   };
