@@ -11,7 +11,15 @@ enum OrderStatus {
 }
 
 const API_URL: string = 'https://norma.nomoreparties.space/api/';
-const WS_URL: string = 'wss://norma.nomoreparties.space/orders/';
+const WS_URL: string = 'wss://norma.nomoreparties.space';
+
+enum WS_ROUTES {
+  orders = '/orders/all',
+}
+
+const WS_API =  {
+  orders: `${WS_URL}${WS_ROUTES.orders}`,
+}
 
 enum API {
   ingredients = 'ingredients',
@@ -23,10 +31,6 @@ enum API {
   user = 'auth/user',
   forgot = 'password-reset',
   reset = 'password-reset/reset',
-}
-
-enum WS {
-  orders = 'orders/all',
 }
 
 enum Pages {
@@ -46,4 +50,4 @@ enum Pages {
 
 const TOKEN_LIVETIME: number = 60 * 20 * 1000;
 
-export { Tabs, API, API_URL, OrderStatus, Pages, TOKEN_LIVETIME };
+export { Tabs, API, API_URL, OrderStatus, Pages, TOKEN_LIVETIME, WS_URL, WS_API };

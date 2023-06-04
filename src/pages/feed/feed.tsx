@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './feed.module.scss';
 import Stats from '../../components/stats';
 import OrderCards from '../../components/order-cards';
+import { RootState, useDispatch, useSelector } from '../../services';
+import { connect, disconnect } from '../../services/actions/wsActions';
+import { WS_API } from '../../utils/constants';
 
 
 interface IFeedProps {
@@ -9,9 +12,16 @@ interface IFeedProps {
 }
 
 export const Feed: React.FC<IFeedProps> = ({ props }) => {
-  // const { isLoading, isError } = useSelector((store: RootState) => store.ingredients);
-  const { isLoading, isError } = {isLoading: false, isError: false};
+  const dispatch = useDispatch();
+  const { isLoading, isError } = useSelector((store: RootState) => store.ingredients);
 
+  useEffect(() => {
+    dispatch(connect({url: WS_API.orders}));
+
+    return () => {
+      dispatch(disconnect());
+    }
+  });
   
     return (
       <main className={`${styles.feed} container px-5`}>

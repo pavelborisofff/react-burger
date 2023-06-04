@@ -62,7 +62,7 @@ export const createSocketMiddleware = (wsActions: TWsActionTypes): Middleware =>
       } = wsActions;
 
       if (connect.match(action)) {
-        console.log('Websocket connecting')
+        console.log('Websocket connecting:' + action.payload.url);
         url = action.payload.url;
         token = action.payload.token ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')}` : "";
         socket = new WebSocket(url + token);

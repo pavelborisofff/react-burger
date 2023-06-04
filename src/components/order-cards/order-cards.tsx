@@ -5,6 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Pages } from '../../utils/constants';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { log } from 'console';
+import { RootState, useSelector } from '../../services';
 
 
 interface IOrderCardsProps {
@@ -27,14 +28,11 @@ export const OrderCards: React.FC<IOrderCardsProps> = ({ extraClass, showStatus 
 interface IOrderCardProps {
   showStatus?: boolean;
 }
-// srcSet: string;
-// src: string;
-// alt?: string;
-// overflow?: number;
-// extraClass?: string;
-// srcSet, src, alt='ingredient', overflow=0, extraClass
+
 
 export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
+  const { orders, total, totalToday } = useSelector((store: RootState) => store.feed);
+  
   const navigate = useNavigate();
   const location = useLocation()
   const maxImgCount = 6;

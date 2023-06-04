@@ -17,3 +17,12 @@ export type TwsActions = ReturnType<typeof connect
                           | typeof wsClose 
                           | typeof wsMessage 
                           | typeof wsError>;
+
+// export type TwsActions = 
+//   | { type: typeof connect }
+//   | { type: typeof disconnect }
+//   | { type: typeof wsConnecting }
+//   | { type: typeof wsOpen }
+//   | { type: typeof wsClose }
+//   | { type: typeof wsMessage }
+//   | { type: typeof wsError };
