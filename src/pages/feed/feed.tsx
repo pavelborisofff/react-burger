@@ -12,16 +12,7 @@ interface IFeedProps {
 }
 
 export const Feed: React.FC<IFeedProps> = ({ props }) => {
-  const dispatch = useDispatch();
   const { isLoading, isError } = useSelector((store: RootState) => store.ingredients);
-
-  useEffect(() => {
-    dispatch(connect({url: WS_API.orders}));
-
-    return () => {
-      dispatch(disconnect());
-    }
-  });
   
     return (
       <main className={`${styles.feed} container px-5`}>

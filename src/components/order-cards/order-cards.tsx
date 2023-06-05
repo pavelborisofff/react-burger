@@ -6,6 +6,8 @@ import { Pages } from '../../utils/constants';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { log } from 'console';
 import { RootState, useSelector } from '../../services';
+import { TOrderType } from '../../services/middleware/wsMiddleware';
+import { Data } from '../../types/types';
 
 
 interface IOrderCardsProps {
@@ -13,35 +15,40 @@ interface IOrderCardsProps {
   showStatus?: boolean;
 }
 
+interface IOrderCardProps {
+  id?: string;
+  showStatus?: boolean;
+}
+
 
 export const OrderCards: React.FC<IOrderCardsProps> = ({ extraClass, showStatus }) => {
+  const { orders } = useSelector((store: RootState) => store.feed);
+
   return (
     <div className={cn(styles.section, styles.scrollableSection, styles[`${extraClass}`], 'section', 'custom-scroll')}>
-      {Array(10).fill(0).map((_, i) => (
-        <OrderCard key={i} showStatus={showStatus} />
+      {orders.map((order) => (
+        <OrderCard key={order._id} showStatus={showStatus} id={order._id} />
       ))}
     </div>
   );
 };
 
 
-interface IOrderCardProps {
-  showStatus?: boolean;
-}
-
-
-export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
-  const { orders, total, totalToday } = useSelector((store: RootState) => store.feed);
-  
-  const navigate = useNavigate();
+export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus, id }) => {  
   const location = useLocation()
+
+  if (!id) {
+    id = location.state.id;
+  } 
+
+  const { orders } = useSelector((store: RootState) => store.feed);
+  const { ingredientsRaw } = useSelector((store: RootState) => store.ingredients);
+  const order = orders.find(order => order._id === id);
+  const orderIngredients = order?.ingredients.map(id => ingredientsRaw?.find(ingredient => ingredient._id === id));
+  const price = orderIngredients?.reduce((acc, curr) => acc + (curr?.price ?? 0), 0);
+  const { _id, number, createdAt, name, status, ingredients } = order ?? {};
+  const arrLength = ingredients?.length ?? 0;
   const maxImgCount = 6;
-  const srcSet = 'https://code.s3.yandex.net/react/code/sauce-04.png';
-  const src = 'https://code.s3.yandex.net/react/code/sauce-04.png';
-  const alt = 'ingredient';
-  const arrLength = 12;
-  const status = 'Выполнен';
-  const _id = '123';
 
   return (
     <Link 
@@ -50,11 +57,11 @@ export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
     >
       <div className={cn(styles.OrderCard, 'p-6')} >
         <div className={cn('flex-wrapper space-between')}>
-          <p className={cn(styles.number, 'text text_type_digits-default')}>#12312312</p>
-          <p className={cn(styles.date, 'text text_type_main-small text_color_inactive')}>#12312312</p>
+          <p className={cn(styles.number, 'text text_type_digits-default')}>#{ number }</p>
+          <p className={cn(styles.date, 'text text_type_main-small text_color_inactive')}>{createdAt && new Date(createdAt).toLocaleString()}</p>
         </div>
         <h2 className={cn(styles.header, 'text text_type_main-medium pt-6')}>
-          Interstellar burger
+          {name}
         </h2>
         {showStatus && (
           <p className={cn(styles.status, 'text text_type_main-default text_color_inactive pt-2')}>
@@ -62,14 +69,18 @@ export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
           </p>
         )}
         <div className={cn(styles.iconsWrapper, 'flex-wrapper', 'pt-6')}>
-          {Array(arrLength).fill(0).map((_, i) => {
+          {orderIngredients && orderIngredients.map((ingredient, i) => {
             if (i + 1 > maxImgCount) return null;
+            if (!ingredient || typeof ingredient === 'string' ) return null;
+            
+            const { image, image_mobile, image_large, name } = ingredient;
+            const srcSet = `${image_mobile} 480w, ${image} 768w, ${image_large} 1280w`;
 
             return (
               <div key={i} className={cn(styles.border)}>
                 <picture className={styles.picture}>
                   <source srcSet={srcSet} />
-                  <img src={src} alt={alt} className={cn(styles.overflow)}/>
+                  <img src={image} alt={name} className={cn(styles.overflow)}/>
                 </picture>
                 {arrLength > maxImgCount && !i && (
                   <div className={cn(styles.overflow, styles.overflowWrapper)}>
@@ -82,7 +93,7 @@ export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus }) => {
             );
           })} 
           <div className={cn(styles.priceWrapper, 'flex-wrapper')}>
-            <p className={`text text_type_digits-default pr-2`}>1234</p>
+            <p className={`text text_type_digits-default pr-2`}>{price}</p>
             <CurrencyIcon type="primary" />
           </div>
         </div>

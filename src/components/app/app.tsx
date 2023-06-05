@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import useIngredients from '../../hooks/api';
+import { useIngredients, useOrders } from '../../hooks/api';
 import Header from "../header/header";
 
 import Main from '../../pages/main';
@@ -19,7 +19,6 @@ import ResetPassword from '../../pages/reset-password';
 import Profile from '../../pages/profile';
 import Ingredients from '../../pages/ingredients';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import Order from '../../pages/orders';
 import { getUser } from '../../services/actions/authActions';
 import Feed from '../../pages/feed';
 import Orders from '../../pages/orders';
@@ -32,15 +31,15 @@ function App() {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
+
   // autologin
   useEffect(() => {
     dispatch(getUser() as any);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
-  
   useIngredients();
+  useOrders();
   
   return (
     <>

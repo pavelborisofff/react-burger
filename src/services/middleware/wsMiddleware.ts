@@ -8,10 +8,11 @@ import { AppDispatch, RootState } from '../index';
 import { TwsActions } from '../actions/wsActions';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { tokenRefresh } from '../actions/authActions';
+import { Data } from '../../types/types';
 
 
 export type TOrderType = {
-  ingredients: Array<string>;
+  ingredients: Array<string | Data | undefined>;
   _id: string;
   status: string;
   number: number;

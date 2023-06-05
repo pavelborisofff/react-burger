@@ -1,5 +1,6 @@
+import { Data } from "../../types/types";
 import { TwsActions } from "../actions/wsActions";
-import { TOrderType, TWsActionTypes } from "../middleware/wsMiddleware";
+import { TOrderType } from "../middleware/wsMiddleware";
 
 
 export enum WebsocketStatus {
@@ -12,14 +13,27 @@ interface IWsState {
   status: 'CONNECTING' | 'ONLINE' | 'OFFLINE';
   error: string;
   orders: TOrderType[];
+  preparedOrders: TPreparedOrder[];
   total: number;
   totalToday: number;
+}
+
+type TPreparedOrder = {
+  ingredients: Data[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  price: number;
 }
 
 const initialState: IWsState = {
   status: WebsocketStatus.OFFLINE,
   error: '',
   orders: [],
+  preparedOrders: [],
   total: 0,
   totalToday: 0,
 }
