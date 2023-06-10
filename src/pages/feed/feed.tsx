@@ -5,6 +5,7 @@ import OrderCards from '../../components/order-cards';
 import { RootState, useDispatch, useSelector } from '../../services';
 import { connect, disconnect } from '../../services/actions/wsActions';
 import { WS_API } from '../../utils/constants';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 interface IFeedProps {
@@ -13,6 +14,9 @@ interface IFeedProps {
 
 export const Feed: React.FC<IFeedProps> = ({ props }) => {
   const { isLoading, isError } = useSelector((store: RootState) => store.ingredients);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
   
     return (
       <main className={`${styles.feed} container px-5`}>

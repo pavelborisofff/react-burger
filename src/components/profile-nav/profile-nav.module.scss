@@ -2,6 +2,7 @@
 
 .profileList {
     margin-top: calc(#{$offset-base-size} * 30);
+    min-width: 340px;
 }
 
 .profileItem {

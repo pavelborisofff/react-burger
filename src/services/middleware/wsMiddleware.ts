@@ -67,10 +67,12 @@ export const createSocketMiddleware = (wsActions: TWsActionTypes): Middleware =>
         url = action.payload.url;
         token = action.payload.token ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')}` : "";
         socket = new WebSocket(url + token);
+        console.log('token:', token);
+        console.log('wurl:', url);
+        console.log('SOCKET:', socket);
         isConnected = true;
         window.clearTimeout(reconnectTimer);
         reconnectTimer = 0;
-        
         dispatch(wsConnecting())
       }
 
