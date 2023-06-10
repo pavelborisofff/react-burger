@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import { useIngredients, useOrders } from '../../hooks/api';
+import { useIngredients } from '../../hooks/api';
 import Header from "../header/header";
 
 import Main from '../../pages/main';
@@ -23,6 +23,7 @@ import Feed from '../../pages/feed';
 import Orders from '../../pages/orders';
 import { OrderCard } from '../order-cards/order-cards';
 import { useDispatch } from '../../services';
+import { log } from 'console';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
+  console.log('APP', location, background);
 
 
   // autologin
@@ -39,23 +41,25 @@ function App() {
   }, []);
 
   useIngredients();
-  useOrders();
   
   return (
     <>
       <Header />
       <Routes location={background || location}>
         <Route path={Pages.main} element={<Main />} />
-        <Route path={Pages.feedId} element={<Orders />} />
-        <Route path={Pages.ordersId} element={<Orders />} />
-        <Route path={Pages.feed} element={<Feed />} />
+        <Route path={Pages.feed} element={<Feed />}>
+          <Route path={Pages.feedId} element={<Orders />} />
+        </Route>
+        {/* <Route path={Pages.ordersId} element={<Orders />} /> */}
         <Route path={Pages.login} element={<ProtectedRoute forAnonymous={true}><Login /></ProtectedRoute>} />
         <Route path={Pages.register} element={<ProtectedRoute forAnonymous={true}><Register /></ProtectedRoute>} />
         <Route path={Pages.forgotPassword} element={<ProtectedRoute forAnonymous={true}><ForgotPassword /></ProtectedRoute>} />
         <Route path={Pages.resetPassword} element={<ProtectedRoute forAnonymous={true}><ResetPassword /></ProtectedRoute>} />
         <Route path={Pages.profile} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
-        <Route path={Pages.orders} element={<ProtectedRoute><Profile /></ProtectedRoute> } />
-        <Route path={Pages.ordersId} element={<ProtectedRoute><OrderCard /></ProtectedRoute> } />
+        <Route path={Pages.orders} element={<ProtectedRoute><Profile /></ProtectedRoute> }>
+          <Route path={Pages.ordersId} element={<ProtectedRoute><Orders /></ProtectedRoute> } />
+        </Route>
+        {/* <Route path={Pages.ordersId} element={<ProtectedRoute><OrderCard /></ProtectedRoute> } /> */}
         <Route path={Pages.ingredients} element={<Ingredients />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>

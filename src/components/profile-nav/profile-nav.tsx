@@ -1,10 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from './profile-nav.module.scss';
-import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../services/actions/authActions';
 import { Pages } from '../../utils/constants';
+import { useDispatch } from '../../services';
 
 
 interface IProfilelNavProps {
@@ -19,7 +19,7 @@ const ProfileNav = () => {
   console.log(pathname);
 
   const onClick = () => {
-    dispatch(logout() as any);
+    dispatch(logout());
   };
 
   const handleClick = (page: Pages) => {

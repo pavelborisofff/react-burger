@@ -14,11 +14,11 @@ const useIngredients = () => {
   }, []);
 }
 
-const useOrders = () => {
+const useOrders = (url: string = WS_API.all, token?: boolean) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(connect({url: WS_API.orders}));
+    dispatch(connect({ url, token }));
 
     return () => {
       dispatch(disconnect());

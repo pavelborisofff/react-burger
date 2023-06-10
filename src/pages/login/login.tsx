@@ -4,8 +4,7 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 
 import { Pages } from '../../utils/constants';
 import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { login } from '../../services/actions/authActions';
 import { Link, useNavigate,  } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
@@ -24,7 +23,7 @@ const Login = () => {
   const isFormValid = useMemo(() => !(values.email && values.password), [values.email, values.password]);
 
   const onSubmit = () => {
-    dispatch(login(values as any) as any);
+    dispatch(login(values as any));
   };
 
   useEffect(() => {

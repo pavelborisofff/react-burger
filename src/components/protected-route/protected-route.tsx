@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useSelector } from '../../services';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Pages } from '../../utils/constants';
 

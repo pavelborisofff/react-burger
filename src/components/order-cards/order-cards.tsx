@@ -2,12 +2,8 @@ import React from 'react';
 import cn from 'classnames';
 import styles from './order-cards.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Pages } from '../../utils/constants';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { log } from 'console';
+import { Link, useLocation } from 'react-router-dom';
 import { RootState, useSelector } from '../../services';
-import { TOrderType } from '../../services/middleware/wsMiddleware';
-import { Data } from '../../types/types';
 
 
 interface IOrderCardsProps {

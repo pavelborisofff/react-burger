@@ -4,9 +4,8 @@ import styles from  './profile-change.module.scss';
 
 import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ERROR, updateUser } from '../../services/actions/authActions';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { ChangeEvent, useMemo, useState } from 'react';
 
 

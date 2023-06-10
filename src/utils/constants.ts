@@ -14,11 +14,13 @@ const API_URL: string = 'https://norma.nomoreparties.space/api/';
 const WS_URL: string = 'wss://norma.nomoreparties.space';
 
 enum WS_ROUTES {
-  orders = '/orders/all',
+  all = '/orders/all',
+  orders = '/orders',
 }
 
 const WS_API =  {
   orders: `${WS_URL}${WS_ROUTES.orders}`,
+  all: `${WS_URL}${WS_ROUTES.all}`,
 }
 
 enum API {

@@ -8,10 +8,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import styles from "./burger-ingredients.module.scss";
 
-import { useSelector } from "react-redux";
-
 import { Data } from "../../types/types";
-import { RootState } from '../../services';
+import { RootState, useSelector } from '../../services';
 
 
 const Ingredient = (props: Data) => {

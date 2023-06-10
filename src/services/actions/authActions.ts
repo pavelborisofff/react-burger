@@ -236,7 +236,7 @@ export const getUser = () => async (dispatch: AppDispatch) => {
     if (error.message && (error.message === 'jwt expired' || error.message === 'jwt malformed')) {    
         
       try {
-        dispatch(tokenRefresh() as any);
+        dispatch(tokenRefresh());
         return null;
       }
       catch (error: any) {

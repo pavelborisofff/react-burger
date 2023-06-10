@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useInView } from "react-intersection-observer";
@@ -10,7 +9,7 @@ import Ingredient from "./ingredient";
 
 import styles from "./burger-ingredients.module.scss";
 
-import { RootState } from '../../services';
+import { RootState, useSelector } from '../../services';
 
 
 const BurgerIngredients = () => {
