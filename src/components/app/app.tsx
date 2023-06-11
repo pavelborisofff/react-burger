@@ -23,7 +23,6 @@ import Feed from '../../pages/feed';
 import Orders from '../../pages/orders';
 import { OrderCard } from '../order-cards/order-cards';
 import { useDispatch } from '../../services';
-import { log } from 'console';
 
 
 function App() {
@@ -31,8 +30,6 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
-  console.log('APP', location, background);
-
 
   // autologin
   useEffect(() => {
@@ -77,7 +74,7 @@ function App() {
             path={Pages.ordersId} 
             element={
               <Modal title='Детали заказа' onClose={() => navigate(-1)}>
-                <OrderCard />
+                <Orders />
               </Modal>
             } 
           />
@@ -85,7 +82,7 @@ function App() {
             path={Pages.feedId} 
             element={
               <Modal title='Детали заказа' onClose={() => navigate(-1)}>
-                <OrderCard />
+                <Orders />
               </Modal>
             } 
           />

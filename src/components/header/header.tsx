@@ -10,6 +10,7 @@ import styles from './header.module.scss';
 
 import { Pages } from '../../utils/constants';
 import cn from 'classnames';
+import path from 'path';
 
 
 export type NavItemProps = {
@@ -47,11 +48,11 @@ const AppHeader = () => {
           <NavItem text='Конструктор' onClick={() => handleClick(Pages.main)} active={Pages.main === pathname}>
             <BurgerIcon type={Pages.main === pathname ? 'primary' : 'secondary'} />
           </NavItem>
-          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.feed)} active={Pages.feed === pathname}>
-            <ListIcon type={Pages.feed === pathname ? 'primary' : 'secondary'} />
+          <NavItem text='Лента заказов' onClick={() => handleClick(Pages.feed)} active={pathname.startsWith(Pages.feed)}>
+            <ListIcon type={pathname.startsWith(Pages.feed) ? 'primary' : 'secondary'} />
           </NavItem>
-          <NavItem text='Личный кабинет' onClick={() => handleClick(Pages.profile)} active={Pages.profile === pathname} className={cn(styles.profile)}>
-            <ProfileIcon type={Pages.profile === pathname ? 'primary' : 'secondary'} />
+          <NavItem text='Личный кабинет' onClick={() => handleClick(Pages.profile)} active={pathname.startsWith(Pages.profile)} className={cn(styles.profile)}>
+            <ProfileIcon type={pathname.startsWith(Pages.profile) ? 'primary' : 'secondary'} />
           </NavItem>
         </ul>
         <Link to={Pages.main} className={styles.logo}>

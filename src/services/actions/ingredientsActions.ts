@@ -48,7 +48,6 @@ export const getIngredients = () => async (dispatch: AppDispatch) => {
       ingredientsRaw: response.data
     });
   } catch (error) {
-    console.log(error);
     dispatch({type: INGREDIENTS_REQUEST_ERROR});
   }
 }

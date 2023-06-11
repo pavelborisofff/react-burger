@@ -32,15 +32,15 @@ const BurgerConstructor = () => {
   const handlerOrder = async () => {
     if (!isAuth) {
       navigate(Pages.login);
-    } else {
-      const body = {
-        ingredients: [...usedIngredients.map(item => item._id), bun?._id || null]
-      };
+      return;
+    } 
+    const body = {
+      ingredients: [...usedIngredients.map(item => item._id), bun?._id].filter((id): id is string => !!id),
+    };
 
-      dispatch({ type: ORDER_RESET });
-      dispatch(orderPost(body as any)); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
-      setShowModal(true);
-    }
+    dispatch({ type: ORDER_RESET });
+    dispatch(orderPost(body)); 
+    setShowModal(true);
   }
 
 
@@ -50,7 +50,7 @@ const BurgerConstructor = () => {
     collect: monitor => ({
       isHover: monitor.isOver()
     }), 
-      drop(item: any) {  // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
+      drop(item: any) {
         changeRecipe(item);
   }});
 

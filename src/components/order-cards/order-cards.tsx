@@ -24,13 +24,13 @@ export const OrderCards: React.FC<IOrderCardsProps> = ({ extraClass, showStatus 
     <div className={cn(styles.section, styles.scrollableSection, styles[`${extraClass}`], 'section', 'custom-scroll')}>
       {orders.map((order) => (
         <OrderCard key={order._id} showStatus={showStatus} id={order._id} />
-      ))}
+      )).reverse()}
     </div>
   );
 };
 
 
-export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus, id }) => {  
+export const OrderCard: React.FC<IOrderCardProps> = ({ showStatus, id }) => { 
   const location = useLocation()
 
   if (!id) {

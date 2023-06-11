@@ -16,8 +16,6 @@ const ProfileNav = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   const onClick = () => {
     dispatch(logout());
   };

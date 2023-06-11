@@ -17,7 +17,6 @@ const Profile = () => {
   let { id } = useParams();
 
   useOrders(WS_API.orders, true);
-
   
   return id ? <Orders /> : (
     <div className={cn(styles.wrapper)}>

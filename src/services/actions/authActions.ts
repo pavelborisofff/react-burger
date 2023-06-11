@@ -83,7 +83,7 @@ export type AuthActionTypes =
   | { type: typeof UPDATE_SUCCESS; user: UserType }
   | { type: typeof UPDATE_ERROR; message?: string }
   | { type: typeof USER_REQUEST }
-  | { type: typeof USER_SUCCESS; user: UserType }
+  | { type: typeof USER_SUCCESS; user: UserType, token: string, refreshToken: string }
   | { type: typeof USER_ERROR; message?: string }
   | { type: typeof FORGOT_REQUEST }
   | { type: typeof FORGOT_SUCCESS; message?: string }
@@ -159,7 +159,6 @@ export const logout = () => async (dispatch: AppDispatch) => {
     deleteCookie('accessToken');
     dispatch({ type: LOGOUT_SUCCESS, token: null, refreshToken: null, user: null });
   } catch (error) {
-    console.log(error);
     dispatch({ type: LOGOUT_ERROR });
   }
 };
@@ -178,12 +177,11 @@ export const tokenRefresh = () => async (dispatch: AppDispatch) => {
 
   try {  
     const response:ITokenResponse = await request({ endpoint: API.token, method: 'POST', data: { token: refreshToken } });
-
+    
     setCookie('accessToken', response.accessToken);
     setCookie('refreshToken', response.refreshToken);
     dispatch({ type: TOKEN_SUCCESS, token: response.accessToken, refreshToken: response.refreshToken });
   } catch (error) {
-    console.log(error);
     dispatch({ type: TOKEN_ERROR });
   }
 }
@@ -195,7 +193,7 @@ export const updateUser = ({ email, password, name }:IRegisterForm) => async (di
   const headers = { 
     'Content-Type': 'application/json', 
     'Accept': 'application/json',
-    'Authorization': `Bearer ${accessToken}`,
+    'Authorization': `${accessToken}`,
   };
 
   try {
@@ -210,15 +208,15 @@ export const updateUser = ({ email, password, name }:IRegisterForm) => async (di
       user: response.user,
     });
   } catch (error) {
-    console.log(error);
     dispatch({ type: UPDATE_ERROR });
   }
 };
 
 
 export const getUser = () => async (dispatch: AppDispatch) => {
-  dispatch({ type: USER_REQUEST });
   const accessToken = getCookie('accessToken');
+  dispatch({ type: USER_REQUEST });
+  
   const headers = { 
     'Content-Type': 'application/json', 
     'Accept': 'application/json',
@@ -227,10 +225,12 @@ export const getUser = () => async (dispatch: AppDispatch) => {
 
   try {
     const response:ILoginResponse = await request({ endpoint: API.user, method: 'GET', headers: headers });
-        
+      
     dispatch({ 
       type: USER_SUCCESS, 
       user: response.user,
+      token: response.accessToken,
+      refreshToken: response.refreshToken,
     });
   } catch (error: any) {
     if (error.message && (error.message === 'jwt expired' || error.message === 'jwt malformed')) {    
@@ -243,7 +243,7 @@ export const getUser = () => async (dispatch: AppDispatch) => {
         throw new Error (error);
       }
     }
-    console.log(error);
+    
     const message = error && error.message ? error.message : '';
     dispatch({ type: USER_ERROR, message: message });
   }

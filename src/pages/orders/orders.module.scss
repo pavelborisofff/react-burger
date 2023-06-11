@@ -5,7 +5,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    height: calc(912px - 88px - calc(#{$offset-base-size} * 10));
+    max-height: calc(912px - 88px - calc(#{$offset-base-size} * 10));
     margin-top: calc(#{$offset-base-size} * 10);
     padding: calc(#{$offset-base-size} * 2);
 }

@@ -12,6 +12,7 @@ interface IOrdersProps {
 
 export const Orders: React.FC<IOrdersProps> = ({ props }) => {
   let { id } = useParams();
+  
   const { orders } = useSelector((store: RootState) => store.feed);
   const { ingredientsRaw } = useSelector((store: RootState) => store.ingredients);
   const order = orders.find(order => order._id === id);

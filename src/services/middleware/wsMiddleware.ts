@@ -63,13 +63,9 @@ export const createSocketMiddleware = (wsActions: TWsActionTypes): Middleware =>
       } = wsActions;
 
       if (connect.match(action)) {
-        console.log('Websocket connecting:' + action.payload.url);
         url = action.payload.url;
         token = action.payload.token ? `?token=${getCookie('accessToken')?.replace('Bearer ', '')}` : "";
         socket = new WebSocket(url + token);
-        console.log('token:', token);
-        console.log('wurl:', url);
-        console.log('SOCKET:', socket);
         isConnected = true;
         window.clearTimeout(reconnectTimer);
         reconnectTimer = 0;
