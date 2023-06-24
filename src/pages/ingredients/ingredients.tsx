@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { Data } from '../../types/types';
 import { IngredientDetails } from '../../components/ingredients-details/ingredients';
 import { useLocation, useParams } from 'react-router-dom';
@@ -25,7 +24,7 @@ const Ingredients = () => {
     }
   }, [dispatch, ingredientsRaw]);
 
-  return (
+return (
     <IngredientDetails {...data} />
   )
 };

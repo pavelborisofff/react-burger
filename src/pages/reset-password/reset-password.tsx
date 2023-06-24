@@ -4,8 +4,7 @@ import { PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burg
 
 import { Pages } from '../../utils/constants';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { useMemo } from 'react';
 import { IResetForm, resetPassword } from '../../services/actions/authActions';
 import { useForm } from '../../hooks/useForm';
@@ -28,7 +27,7 @@ const ResetPassword = () => {
   }
 
   const onSubmit = () => {
-    dispatch(resetPassword(values as unknown as IResetForm) as any);
+    dispatch(resetPassword(values as unknown as IResetForm));
   };
 
   return (

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 
@@ -7,7 +6,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import styles from "./main.module.scss";
 
-import { RootState } from '../../services';
+import { RootState, useSelector } from '../../services';
 
 
 const Main = () => {

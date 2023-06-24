@@ -1,16 +1,30 @@
-import { useDispatch } from 'react-redux';
-
 import { getIngredients } from '../services/actions/ingredientsActions';
 import { useEffect } from 'react';
+import { connect, disconnect } from '../services/actions/wsActions';
+import { WS_API } from '../utils/constants';
+import { useDispatch } from '../services';
 
 
 const useIngredients = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients() as any);  // TODO: https://redux.js.org/usage/usage-with-typescript#define-typed-hooks  — ещё не вчитался и не вник, как это сделать правильно
+    dispatch(getIngredients());
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // TODO: we need call this function only once at the beginning
+  }, []);
 }
 
-export default useIngredients;
+const useOrders = (url: string = WS_API.all, token?: boolean) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(connect({ url, token }));
+
+    return () => {
+      dispatch(disconnect());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
+
+export { useIngredients, useOrders };

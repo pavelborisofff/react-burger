@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import { CLEAR_ERROR } from '../services/actions/authActions';
+import { useDispatch } from '../services';
 
 interface IInputValues {
   [key: string]: string;

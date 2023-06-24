@@ -3,8 +3,7 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import { OrderStatus } from "../../utils/constants";
 
 import styles from "./order-details.module.scss";
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useSelector } from '../../services';
 
 
 const OrderDetails = () => {

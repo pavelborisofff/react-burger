@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   ConstructorElement,
@@ -9,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import styles from "./burger-constructor.module.scss";
 
-import { RootState } from "../../services";
+import { RootState, useDispatch, useSelector } from "../../services";
 import { Data } from '../../types/types';
 import { BUN_ADD, BUN_REMOVE, INGREDIENT_ADD } from '../../services/actions/recipeActions';
 import { RecipeItem } from './recipe-item';
@@ -33,15 +32,15 @@ const BurgerConstructor = () => {
   const handlerOrder = async () => {
     if (!isAuth) {
       navigate(Pages.login);
-    } else {
-      const body = {
-        ingredients: [...usedIngredients.map(item => item._id), bun?._id || null]
-      };
+      return;
+    } 
+    const body = {
+      ingredients: [...usedIngredients.map(item => item._id), bun?._id].filter((id): id is string => !!id),
+    };
 
-      dispatch({ type: ORDER_RESET });
-      dispatch(orderPost(body as any) as any); // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
-      setShowModal(true);
-    }
+    dispatch({ type: ORDER_RESET });
+    dispatch(orderPost(body)); 
+    setShowModal(true);
   }
 
 
@@ -51,7 +50,7 @@ const BurgerConstructor = () => {
     collect: monitor => ({
       isHover: monitor.isOver()
     }), 
-      drop(item: any) {  // TODO: не знаю, что тут сделать, чтобы не было ошибки в TS
+      drop(item: any) {
         changeRecipe(item);
   }});
 

@@ -14,7 +14,7 @@ interface ICookieProps {
   [key: string]: any; // TODO: тут надо типизировать?
 }
 
-function setCookie(name: string, value: string | null, props?: ICookieProps) {
+function setCookie(name: string, value: string, props?: ICookieProps) {
   props = props || { expires : 1 };
 
   let exp = props.expires;
@@ -42,7 +42,7 @@ function setCookie(name: string, value: string | null, props?: ICookieProps) {
 }
 
 function deleteCookie(name: string) {
-  setCookie(name, null, { expires: -1 });
+  setCookie(name, '', { expires: -1 });
 }
 
 

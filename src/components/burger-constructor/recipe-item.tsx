@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { INGREDIENT_REMOVE, INGREDIENTS_SET } from '../../services/actions/recipeActions';
 
@@ -9,7 +8,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 
 
 const sortRecipe = (dragIndex: number, hoverIndex: number, arr: Array<any>) => {

@@ -1,6 +1,5 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services';
-import { Navigate, useLocation } from 'react-router-dom';
+import { RootState, useSelector } from '../../services';
+import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { Pages } from '../../utils/constants';
 
 
@@ -11,10 +10,11 @@ interface IProtectedRoute {
 }
 
 const ProtectedRoute = ({ children, forAnonymous = false }:IProtectedRoute) => {
-  const location = useLocation();
+  const location = useLocation();  
   
   const { isAuth } = useSelector((store: RootState) => store.auth);
   const from = location.state?.from || '/';  
+  
 
   if (forAnonymous && isAuth) {
     return <Navigate to={from} />;

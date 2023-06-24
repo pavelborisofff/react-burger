@@ -1,41 +1,11 @@
 @import "../../variables.scss";
 
-.profileItem {
-    color: $text-dark-grey;
-    cursor: pointer;
-
-    &:hover,
-    &.active {
-        color: $text-primary-light;
-    }
-}
-
-.profileList {
-    width: 340px;
-}
-
 .wrapper {
     display: flex;
     width: 100%;
     max-width: 1280px;
-    margin: auto auto;
+    margin: 0 auto;
     flex-direction: row;
     position: relative;
     align-items: flex-start;
-}
-
-.form {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-
-    & > * + * {
-        margin-left: calc(#{$offset-base-size} * 6);
-    }
 }

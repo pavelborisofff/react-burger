@@ -4,8 +4,7 @@ import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-de
 
 import { Pages } from '../../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { useEffect, useMemo, useState } from 'react';
 import { CLEAR_ERROR, IRegisterForm, login, register } from '../../services/actions/authActions';
 
@@ -31,7 +30,7 @@ const Register = () => {
 
 
   const onSubmit = () => {
-    dispatch(register(values as unknown as IRegisterForm) as any)
+    dispatch(register(values as unknown as IRegisterForm))
   };
 
   useEffect(() => {

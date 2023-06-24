@@ -1,0 +1,43 @@
+@import '../../variables.scss';
+
+.section {
+    display: grid;
+    column-gap: calc(#{$offset-base-size} * 9);
+    row-gap: calc(#{$offset-base-size} * 15);
+    height: calc(912px - 88px - 100px - 56px);
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        'ready preparing'
+        'total total'
+        'today today'
+    ;
+}
+
+
+.ready {
+    grid-area: ready;
+    height: 272px;
+
+    & .number {
+        color: #00cccc;
+    }
+}
+
+.list {
+    columns: 2;
+}
+
+.preparing {
+    grid-area: preparing;
+    height: 272px;
+}
+
+.total {
+    grid-area: total;
+}
+
+.today {
+    grid-area: today;
+}

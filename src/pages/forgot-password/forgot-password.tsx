@@ -5,8 +5,7 @@ import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-de
 import { Pages } from '../../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services';
+import { RootState, useDispatch, useSelector } from '../../services';
 import { forgotPassword } from '../../services/actions/authActions';
 import { useForm } from '../../hooks/useForm';
 
@@ -23,7 +22,7 @@ const ForgotPassword = () => {
   const { isError, isForgot, message } = useSelector((store: RootState) => store.auth); 
 
   const onSubmit = () => {
-    dispatch(forgotPassword(values.email) as any);
+    dispatch(forgotPassword(values.email));
   };
 
   useEffect(() => {

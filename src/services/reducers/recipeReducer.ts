@@ -47,6 +47,7 @@ const recipeReducer = (state = initialRecipe, action: RecipeActionTypes):IRecipe
       return {
         ...state,
         bun: action.payload,
+        // usedIngredients: [...state.usedIngredients, action.payload],
         usedCount: {
           ...state.usedCount,
           [action.payload._id]: 2,
@@ -61,6 +62,7 @@ const recipeReducer = (state = initialRecipe, action: RecipeActionTypes):IRecipe
       return {
         ...state,
         bun: null,
+        // usedIngredients: state.usedIngredients.filter((item:Data) => item.uuid !== action.payload.uuid),
         usedCount: {
           ...state.usedCount,
           [currentBun._id]: 0,

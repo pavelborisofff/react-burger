@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .body {
-  width: 640px;
+  min-width: 640px;
   display: flex;
   flex-direction: column;
   background: $color-modal-bg;

@@ -12,7 +12,7 @@ const modalRoot = document.getElementById("modal-root") as HTMLElement;
 const body = document.querySelector("body") as HTMLElement;
 
 export type ModalProps = {
-  title: string;
+  title?: string;
   onClose?: () => void;
   children?: React.ReactNode;
 };
@@ -40,9 +40,9 @@ const Modal = ({title, onClose, children}:ModalProps) => {
       <ModalOverlay onClose={onCloseCommon}>
         <div className={`${styles.body} px-10 py-15`}>
           <div className={`${styles.header}`}>
-            <h3 className={`${styles.title} text text_type_main-medium`}>
+            {title && <h3 className={`${styles.title} text text_type_main-medium`}>
               {title}
-            </h3>
+            </h3>}
             <CloseIcon type="primary" onClick={onCloseCommon} />
           </div>
           {children}

@@ -191,6 +191,8 @@ const authReducer = (state = initialState, action: AuthActionTypes):IAuthState =
         isError: false,
         isAuth: true,
         message: '',
+        token: action.token,
+        refreshToken: action.refreshToken,
       };
     case USER_ERROR:
       return {
