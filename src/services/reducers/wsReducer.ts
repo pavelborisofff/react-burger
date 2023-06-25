@@ -55,10 +55,6 @@ const wsReducer = (state = initialState, action: TwsActions): IWsState => {
       return {
         ...state,
         status: WebsocketStatus.OFFLINE,
-        // error: '',
-        // orders: [],
-        // total: 0,
-        // totalToday: 0,
       };
     case 'FEED_WS_MESSAGE':
       return {
