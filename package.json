@@ -34,6 +34,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+        "coverage": "react-scripts test --coverage --watchAll  --transformIgnorePatterns \"node_modules/(?!axios)/\"",
         "eject": "react-scripts eject",
         "cypress:open": "./node_modules/.bin/cypress open",
         "predeploy": "npm run build",

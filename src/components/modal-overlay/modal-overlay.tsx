@@ -17,6 +17,7 @@ const ModalOverlay = ({ onClose, children }: ModalOverlayProps) => {
       className={`${styles.overlay} modal-overlay`}
       onClick={handlerClick}
       ref={ref}
+      data-testid="modal-overlay"
     >
       {children}
     </div>
