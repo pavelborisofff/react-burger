@@ -38,6 +38,11 @@ describe('constructor', () => {
     cy.get('[data-testid="modal"]').should('not.exist');
   })
 
+  it('modal data should be equal to ingredient data', () => {
+    cy.get('[data-testid="643d69a5c3f7b9001cfa0943"]').click();
+    cy.get('[data-testid="ingredient-name"]').should('have.text', 'Соус фирменный Space Sauce');
+  })
+
   it('should be able to post order then open and close modal', () => {
     cy.get('[data-testid="643d69a5c3f7b9001cfa0943"]').trigger('dragstart');
     cy.get('[data-testid="burger-constructor"').trigger('drop');
@@ -49,5 +54,4 @@ describe('constructor', () => {
     cy.get('body').trigger('keydown',{key: 'Escape'});
     cy.get('[data-testid="modal"]').should('not.exist');
   })
-
 })
