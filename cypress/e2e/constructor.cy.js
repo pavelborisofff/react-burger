@@ -1,9 +1,9 @@
-describe('template spec', () => {
+describe('constructor', () => {
   beforeEach(() => {
     cy.viewport(1920, 1080);
     cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' });
     cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'})
-    cy.intercept('POST', 'api/orders', {fixture: 'order.back.json'})
+    cy.intercept('POST', 'api/orders', {fixture: 'order.json'})
     cy.setCookie('accessToken', 'testAccessToken');
     cy.visit('/');
   })
