@@ -10,7 +10,6 @@ import styles from './header.module.scss';
 
 import { Pages } from '../../utils/constants';
 import cn from 'classnames';
-import path from 'path';
 
 
 export type NavItemProps = {

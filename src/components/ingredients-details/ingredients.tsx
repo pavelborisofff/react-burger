@@ -38,7 +38,7 @@ const IngredientDetails = (props: Data) => {
         alt={props.name}
         className={`${styles.ingredientsImage}`}
       />
-      <p className={`${styles.name} text text_type_main-medium pt-4 pb-8`}>
+      <p className={`${styles.name} text text_type_main-medium pt-4 pb-8`} data-testid='ingredient-name'>
         {props.name}
       </p>
       <ul className={`${styles.nutrientsList}`}>

@@ -38,12 +38,14 @@ const Modal = ({title, onClose, children}:ModalProps) => {
   return createPortal(
     <>
       <ModalOverlay onClose={onCloseCommon}>
-        <div className={`${styles.body} px-10 py-15`}>
+        <div className={`${styles.body} px-10 py-15`} data-testid='modal'>
           <div className={`${styles.header}`}>
             {title && <h3 className={`${styles.title} text text_type_main-medium`}>
               {title}
             </h3>}
-            <CloseIcon type="primary" onClick={onCloseCommon} />
+            <div data-testid="modal-close">
+              <CloseIcon type="primary" onClick={onCloseCommon}/>
+            </div>
           </div>
           {children}
         </div>

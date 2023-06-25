@@ -21,7 +21,6 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUser } from '../../services/actions/authActions';
 import Feed from '../../pages/feed';
 import Orders from '../../pages/orders';
-import { OrderCard } from '../order-cards/order-cards';
 import { useDispatch } from '../../services';
 
 

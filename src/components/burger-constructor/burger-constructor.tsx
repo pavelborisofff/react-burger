@@ -73,7 +73,11 @@ const BurgerConstructor = () => {
 
   return (
     <>
-      <section className={`${styles.section} ${isHover ? styles.isHover : ''} section`} ref={dropTargetRef}>
+      <section 
+        className={`${styles.section} ${isHover ? styles.isHover : ''} section`} 
+        ref={dropTargetRef}
+        data-testid='burger-constructor'
+      >
         {/* top */}
         {!!bun && 
           <ConstructorElement
@@ -132,6 +136,7 @@ const BurgerConstructor = () => {
             extraClass={`${styles.button}`}
             onClick={() => handlerOrder()}
             disabled={!bun}
+            data-testid='order-button'
           >
             Оформить заказ
           </Button>
