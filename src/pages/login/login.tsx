@@ -46,12 +46,14 @@ const Login = () => {
           placeholder='E-mail'
           isIcon={false}
           extraClass={cn('pb-6')}
+          data-testid='email-input'
         />
         <PasswordInput
           onChange={handleChange}
           value={values.password}
           name={'password'}
           extraClass={cn('pb-6')}
+          data-testid='password-input'
         />
         <Button 
           htmlType='submit' 
@@ -59,6 +61,7 @@ const Login = () => {
           size='medium' 
           extraClass='mb-20' 
           disabled={isFormValid}
+          data-testid='login-button'
         >
           Войти
         </Button>

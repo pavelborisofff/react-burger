@@ -11,7 +11,7 @@ const OrderDetails = () => {
 
   return (
     <div className={`${styles.details} mt-4 mb-15`}>
-      <p className={`${styles.number} text text_type_digits-large`}>
+      <p className={`${styles.number} text text_type_digits-large`} data-testid='order-number'>
         {orderNumber || "---"}
       </p>
       <p className={`text text_type_main-medium pt-8`}>

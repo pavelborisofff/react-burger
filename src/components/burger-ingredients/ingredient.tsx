@@ -25,7 +25,11 @@ const Ingredient = (props: Data) => {
   });
 
   return (
-    <li className={`${styles.ingredientsItem} ${isDrag ? styles.isDrag : ''}`} ref={bun?._id === props._id ? null : dragRef}>
+    <li 
+      className={`${styles.ingredientsItem} ${isDrag ? styles.isDrag : ''}`} 
+      ref={bun?._id === props._id ? null : dragRef}
+      data-testid={props._id}
+    >
       <Link 
         to={{ pathname: `/ingredients/${props._id}` }}
         state={{ background: location, id: props._id }}
